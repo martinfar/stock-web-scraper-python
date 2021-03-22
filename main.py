@@ -6,8 +6,17 @@ def main():
     logging.basicConfig(filename='tor_scraper.log', level=logging.INFO)
     logging.info('Started')
     #json_dict = {"Market Cap.": "+Small (over $300mln)", "Dividend Yield": "Over 3%", "P/E": "Under 30", "PEG": "Under 2"}    
-    json_dict = {"Market Cap.": "Any", "Dividend Yield": "Over 3%", "P/E": "Under 30", "Quick Ratio": "Over 2"
-                  , "Return on Equity": "Over +15%", "Current Ratio": "Over 2","Debt/Equity": "Under 1", "Country":"USA"}  
+    json_dict = {
+        "Market Cap.": "Any" 
+        ,"Dividend Yield": "Over 3%" 
+        ,"P/E": "Under 30" 
+        #,"PEG": "Under 2"
+        ,"Quick Ratio": "Over 1"
+        ,"Return on Equity": "Over +10%"
+        ,"Current Ratio": "Over 1"
+        ,"Debt/Equity": "Under 1"
+        ,"Country":"USA"
+        }  
 
     ticket_list = fs.custom_screener(json_dict)
 

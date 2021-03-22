@@ -21,8 +21,9 @@ print("date",date_str)
 
 def guru_scraper (tbb_path,result_path,tickers_list):
     valuations = []
-    img_list = []
+    
     for ticker in tickers_list:
+        img_list = []
         if not os.path.exists(result_path + date_str):
             os.mkdir(result_path + date_str)
         screenshot_fullpath = result_path + date_str + "/" + "guru_"+ ticker + '.png'
