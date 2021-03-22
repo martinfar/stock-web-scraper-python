@@ -1,0 +1,10 @@
+<html>
+ <body>
+  <p>{{ stock_info }}</p>
+  <br>
+  <br>
+ {% for image_name in img_paths %}
+   <img src="cid:{{ image_name }}">
+ {% endfor %}
+ </body>
+</html>
