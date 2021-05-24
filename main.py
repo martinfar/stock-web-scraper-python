@@ -2,19 +2,25 @@ import logging
 import tor_scraper as ts
 import screeners.finviz_screen as fs
 import sends.mails as mails
+import multiprocessing
+import json
+import time
+
 def main():
     logging.basicConfig(filename='tor_scraper.log', level=logging.INFO)
-    logging.info('Started')
-    #json_dict = {"Market Cap.": "+Small (over $300mln)", "Dividend Yield": "Over 3%", "P/E": "Under 30", "PEG": "Under 2"}    
+    logging.info('Started')   
     json_dict = {
         "Market Cap.": "Any" 
-        ,"Dividend Yield": "Over 3%" 
-        ,"P/E": "Under 30" 
+        ,"Dividend Yield": "Over 1%" 
+        ,"P/E": "Under 35" 
         #,"PEG": "Under 2"
         ,"Quick Ratio": "Over 1"
         ,"Return on Equity": "Over +10%"
         ,"Current Ratio": "Over 1"
-        ,"Debt/Equity": "Under 1"
+        #,"Sales growth qtr over qtr": "Over 5%"
+        #,"EPS growth past 5 years": "Over 5%"
+        ,"Debt/Equity": "Under 0.8"        
+        ,"Return on Investment": "Positive (>0%)"
         ,"Country":"USA"
         }  
 
@@ -31,5 +37,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
 
 
