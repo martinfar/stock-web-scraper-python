@@ -8,6 +8,7 @@ while ! nc -z localhost 9050; do
   echo "wait for tor to open "
 done
 
-python3 /opt/pystock/main.py
+tail -f /dev/null
+#python3 /opt/pystock/main.py
 
 exec "$@"

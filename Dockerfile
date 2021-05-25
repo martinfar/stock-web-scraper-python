@@ -3,7 +3,8 @@ FROM ubuntu:bionic
 RUN apt-get update -y && \
   apt-get install -y tor idle3 curl python3-dev \
    python3-distutils netcat \
-   wget gpg libdbus-glib-1-2 libgtk-3-0 
+   wget gpg libdbus-glib-1-2 libgtk-3-0 libx11-xcb-dev \
+   xserver-xorg xserver-xorg-video-all xserver-xephyr x11-xserver-utils xinit xvfb openbox 
 
 
 ENV TOR_VERSION=10.0.16
