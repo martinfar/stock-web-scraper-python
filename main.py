@@ -7,8 +7,6 @@ import json
 import time
 
 def main():
-    logging.basicConfig(filename='tor_scraper.log', level=logging.INFO)
-    logging.info('Started')   
     json_dict = {
         "Market Cap.": "Any" 
         ,"Dividend Yield": "Over 1%" 
@@ -26,14 +24,14 @@ def main():
 
     ticket_list = fs.custom_screener(json_dict)
 
-    tbb_path="/home/vtx/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/"
-    result_path="/home/vtx/stock/"
+    tbb_path="/app/"
+    result_path="/opt/pystock/"
     valuations = ts.guru_scraper(tbb_path=tbb_path,result_path=result_path,tickers_list=ticket_list)
 
     for valuation in valuations:
         mails.send_email(valuation,result_path)
 
-    logging.info('Finished')
+
 
 if __name__ == '__main__':
     main()

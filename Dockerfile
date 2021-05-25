@@ -2,7 +2,7 @@ FROM ubuntu:bionic
 
 RUN apt-get update -y && \
   apt-get install -y tor idle3 curl python3-dev \
-   python3-distutils  \
+   python3-distutils netcat \
    wget gpg libdbus-glib-1-2 libgtk-3-0 
 
 
@@ -13,6 +13,7 @@ ENV APP_NAME="Tor Browser ${TOR_VERSION}" \
     TOR_FINGERPRINT=0xEF6E286DDA85EA2A4BA7DE684E2C6E8793298290 \
     DEBIAN_FRONTEND=noninteractive
 
+RUN export GECKO_DRIVER_VERSION='v0.29.0' && wget https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz && tar -xvzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz && chmod +x geckodriver && cp geckodriver /usr/local/bin/ 
 
 WORKDIR /app
 
@@ -42,6 +43,8 @@ COPY sends /opt/pystock/sends
 COPY main.py /opt/pystock/.
 COPY tor_scraper.py /opt/pystock/.
 
+RUN ls -ltra /opt/pystock/
+
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3        
 RUN pip3 install --no-cache-dir --upgrade pip 
 RUN pip3 --version         
@@ -53,6 +56,17 @@ RUN    pip3 install pathlib
 RUN    pip3 install pandas 
 RUN    pip3 install bs4  
 RUN    pip3 install requests  
+RUN    pip3 install jinja2
+
+WORKDIR /opt/pystock
+
+COPY entrypoint.sh /opt/pystock/.
+
+RUN chmod 775 /opt/pystock/entrypoint.sh
 
 
+RUN  apt-get install -y tree
+RUN tree /app
+
+ENTRYPOINT /opt/pystock/entrypoint.sh
 
