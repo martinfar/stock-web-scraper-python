@@ -26,7 +26,7 @@ def guru_scraper (tbb_path,result_path,tickers_list):
 
     start = time.time()
     for ticker in tickers_list[:1]:
-        ticker_scraper(result_path, ticker, tbb_path)
+        valuations = ticker_scraper(result_path, ticker, tbb_path)
     #processes = []
     #with ThreadPoolExecutor(max_workers=1) as executor:
     #    args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
@@ -87,12 +87,17 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
 
             try:
-                element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
-                print("===============================================================================")
-                print("===============================================================================")
-                print("===============================================================================")
-                print(screenshot_fullpath)
-                print(element.text)
+                try:                                                
+                    element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
+                    print("===============================================================================")
+                    print("============================= VALUATION  ======================================")
+                    print("===============================================================================")
+                    print(screenshot_fullpath)
+                    print(element.text)
+                except Exception as e:
+                    print(e)
+                     
+
                 print("===============================================================================")
                 print("===============================================================================")
                 print("===============================================================================")

@@ -27,7 +27,10 @@ def main():
     tbb_path="/app/"
     result_path="/opt/pystock/"
     valuations = ts.guru_scraper(tbb_path=tbb_path,result_path=result_path,tickers_list=ticket_list)
-
+    
+    print("===============================================================================")
+    print("===============================   FINAL  ======================================")
+    print (valuations)
     for valuation in valuations:
         mails.send_email(valuation,result_path)
 
