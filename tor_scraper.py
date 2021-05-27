@@ -25,14 +25,15 @@ def guru_scraper (tbb_path,result_path,tickers_list):
 
 
     start = time.time()
-
-    processes = []
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        args = ((result_path, ticker, tbb_path) for ticker in tickers_list)
-        processes.append(executor.map(lambda p: ticker_scraper(*p), args))
-
-    for task in as_completed(processes):
-        valuations.append(task.result())
+    for ticker in tickers_list[:1]:
+        ticker_scraper(result_path, ticker, tbb_path)
+    #processes = []
+    #with ThreadPoolExecutor(max_workers=1) as executor:
+    #    args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
+    #    processes.append(executor.map(lambda p: ticker_scraper(*p), args))
+#
+    #for task in as_completed(processes):
+    #    valuations.append(task.result())
 
     return valuations
 
@@ -41,22 +42,37 @@ def ticker_scraper(result_path, ticker, tbb_path):
     if not os.path.exists(result_path + date_str):
         os.mkdir(result_path + date_str)
     screenshot_fullpath = result_path + date_str + "/" + "guru_"+ ticker + '.png'
+
+    print("===============================================================================")
+    print("================================    INICIO    =================================")
+    print("===============================================================================")
+    print(screenshot_fullpath)
+    print("===============================================================================")
+    
     try:
             firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True) 
             firefox_driver.get('https://gurufocus.com/stock/'+ ticker+'/summary')
             fondos = firefox_driver.find_elements_by_class_name("v-modal")
+            print("===============================================================================")
+            print("================================    fondos    =================================")
+            print("===============================================================================")           
             for fondo in fondos:
                 print(fondo.text)
                 firefox_driver.execute_script("""
                     arguments[0].parentNode.removeChild(arguments[0]);
                     """, fondo)
+            print("===============================================================================")
+            print("================================    popups    =================================")
+            print("===============================================================================")                      
             popups = firefox_driver.find_elements_by_class_name("el-dialog__wrapper")
             for popup in popups:
                 print(popup.text)
                 firefox_driver.execute_script("""
                     arguments[0].parentNode.removeChild(arguments[0]);
                     """, popup)
-
+            print("===============================================================================")
+            print("================    guru-investment-theses    =================================")
+            print("===============================================================================")  
             element = firefox_driver.find_element_by_id("guru-investment-theses")
             print(element.text)
             firefox_driver.execute_script("""
@@ -72,19 +88,30 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
             try:
                 element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
+                print("===============================================================================")
+                print("===============================================================================")
+                print("===============================================================================")
+                print(screenshot_fullpath)
                 print(element.text)
+                print("===============================================================================")
+                print("===============================================================================")
+                print("===============================================================================")
 
-                if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()):
-                    # pagedata=firefox_driver.page_source
-                    # with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
-                    #     text_file.write(pagedata)                        
-                    firefox_driver.save_screenshot(screenshot_fullpath)
-                    img_list.append(screenshot_fullpath)
-                    #valuations.append( Ticker(valuation=element.text,report_paths=img_list,ticker=ticker) )
-                    return Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
+                #if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()) or ('overvalued' in element.text.lower()):
+                pagedata=firefox_driver.page_source
+                with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
+                        text_file.write(pagedata)                        
+                firefox_driver.save_screenshot(screenshot_fullpath)
+                
+                img_list.append(screenshot_fullpath)
+                #valuations.append( Ticker(valuation=element.text,report_paths=img_list,ticker=ticker) )
+                return Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
             except Exception as e:
                 print(e)
 
+            print("===============================================================================")
+            print("===============================   FINAL  ======================================")
+            print("===============================================================================")
 
             firefox_driver.close()
             firefox_driver.quit()
