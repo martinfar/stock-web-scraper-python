@@ -9,6 +9,7 @@ import os
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
+import sends.mails as mails
 
 class Ticker:  
     def __init__(self, valuation, report_paths,ticker):  
@@ -23,17 +24,16 @@ print("date",date_str)
 def guru_scraper (tbb_path,result_path,tickers_list):
     valuations = []
 
-
     start = time.time()
-    for ticker in tickers_list[:1]:
-        valuations = ticker_scraper(result_path, ticker, tbb_path)
-    #processes = []
-    #with ThreadPoolExecutor(max_workers=1) as executor:
-    #    args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
-    #    processes.append(executor.map(lambda p: ticker_scraper(*p), args))
-#
-    #for task in as_completed(processes):
-    #    valuations.append(task.result())
+    #for ticker in tickers_list[:1]:
+    #    valuations = ticker_scraper(result_path, ticker, tbb_path)
+    processes = []
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
+        processes.append(executor.map(lambda p: ticker_scraper(*p), args))
+
+    for task in as_completed(processes):
+        valuations.append(task.result())
 
     return valuations
 
@@ -85,32 +85,33 @@ def ticker_scraper(result_path, ticker, tbb_path):
             firefox_driver.find_element_by_class_name("more-margin").click()
 
 
-
+            print("===============================================================================")
+            print("================    Get Valuation    ==========================================")
+            print("===============================================================================")  
             try:
-                try:                                                
-                    element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
-                    print("===============================================================================")
-                    print("============================= VALUATION  ======================================")
-                    print("===============================================================================")
-                    print(screenshot_fullpath)
-                    print(element.text)
-                except Exception as e:
-                    print(e)
+                                           
+                element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
+                print("===============================================================================")
+                print("============================= VALUATION  ======================================")
+                print("===============================================================================")
+                print(screenshot_fullpath)
+                print(element.text)
+
                      
 
-                print("===============================================================================")
-                print("===============================================================================")
-                print("===============================================================================")
-
-                #if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()) or ('overvalued' in element.text.lower()):
-                pagedata=firefox_driver.page_source
-                with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
-                        text_file.write(pagedata)                        
-                firefox_driver.save_screenshot(screenshot_fullpath)
-                
-                img_list.append(screenshot_fullpath)
-                #valuations.append( Ticker(valuation=element.text,report_paths=img_list,ticker=ticker) )
-                return Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
+                if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()) :
+                    #pagedata=firefox_driver.page_source
+                    #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
+                    #        text_file.write(pagedata)                        
+                    firefox_driver.save_screenshot(screenshot_fullpath)
+                    
+                    img_list.append(screenshot_fullpath)
+                    valuation = Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
+                    try:
+                        mails.send_email(valuation,result_path)
+                    except Exception as e:
+                        print(e)
+                    return Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
             except Exception as e:
                 print(e)
 

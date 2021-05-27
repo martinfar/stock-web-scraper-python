@@ -68,6 +68,9 @@ COPY entrypoint.sh /opt/pystock/.
 
 RUN chmod 775 /opt/pystock/entrypoint.sh
 
+COPY go-cron /usr/local/bin/go-cron
+RUN chmod +x /usr/local/bin/go-cron
+
 RUN  apt-get install -y tree
 RUN tree /app
 

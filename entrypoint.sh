@@ -10,5 +10,6 @@ done
 
 tail -f /dev/null
 #python3 /opt/pystock/main.py
+# exec go-cron "$SCHEDULE" python3 /opt/pystock/main.py
 
 exec "$@"
