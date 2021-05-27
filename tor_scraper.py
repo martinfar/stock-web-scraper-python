@@ -25,15 +25,15 @@ def guru_scraper (tbb_path,result_path,tickers_list):
     valuations = []
 
     start = time.time()
-    #for ticker in tickers_list[:1]:
-    #    valuations = ticker_scraper(result_path, ticker, tbb_path)
+    for ticker in tickers_list:
+        valuations = ticker_scraper(result_path, ticker, tbb_path)
     processes = []
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
-        processes.append(executor.map(lambda p: ticker_scraper(*p), args))
+    #with ThreadPoolExecutor(max_workers=2) as executor:
+    #    args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
+    #    processes.append(executor.map(lambda p: ticker_scraper(*p), args))
 
-    for task in as_completed(processes):
-        valuations.append(task.result())
+    #for task in as_completed(processes):
+    #    valuations.append(task.result())
 
     return valuations
 
