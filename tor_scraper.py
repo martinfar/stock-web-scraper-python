@@ -99,7 +99,8 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
                      
 
-                if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()) :
+                #if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()) :
+                if ('undervalued' in element.text.lower()):
                     #pagedata=firefox_driver.page_source
                     #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
                     #        text_file.write(pagedata)                        
