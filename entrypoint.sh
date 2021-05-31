@@ -9,15 +9,10 @@ while ! (curl --stderr - --socks5-hostname 127.0.0.1:9050 https://check.torproje
   echo "wait for tor to open "
 done
 
-#tail -f /dev/null
-#python3 /opt/pystock/main.py
-
 if [[ -z "${SCHEDULE}" ]]; then
   python3 /opt/pystock/main.py
 else
   exec go-cron "$SCHEDULE" python3 /opt/pystock/main.py
- 
-  crontab /etc/cron.d/stop-python
 fi
 
 exec "$@"

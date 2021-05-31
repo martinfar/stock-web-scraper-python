@@ -75,7 +75,7 @@ RUN chmod 775 /opt/pystock/entrypoint.sh
 COPY go-cron /usr/local/bin/go-cron
 RUN chmod +x /usr/local/bin/go-cron
 
-RUN  echo "0 10 * * * root pkill -9 python >/proc/1/fd/1 2>/proc/1/fd/2" >/etc/cron.d/stop-python
+RUN  echo "0 10 * * * root pkill -9 python && pkill -9 firefox >/proc/1/fd/1 2>/proc/1/fd/2" >/etc/cron.d/stop-python
 RUN  chmod 0644 /etc/cron.d/* 
 
 COPY supervisord.conf /etc/supervisor/
