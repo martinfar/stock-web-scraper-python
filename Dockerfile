@@ -6,7 +6,11 @@ RUN apt-get update -y && \
   apt-get install -y tor idle3 curl python3-dev \
    python3-distutils netcat \
    wget gpg libdbus-glib-1-2 libgtk-3-0 libx11-xcb-dev \
-   xserver-xorg xserver-xorg-video-all xserver-xephyr x11-xserver-utils xinit xvfb openbox vim gpg
+   xserver-xorg xserver-xorg-video-all xserver-xephyr x11-xserver-utils xinit xvfb openbox \
+   vim gpg \
+   ca-certificates \
+   supervisor \   
+   cron
 
 
 ENV TOR_VERSION=10.0.16
@@ -71,8 +75,12 @@ RUN chmod 775 /opt/pystock/entrypoint.sh
 COPY go-cron /usr/local/bin/go-cron
 RUN chmod +x /usr/local/bin/go-cron
 
-RUN  apt-get install -y tree
-RUN tree /app
+RUN  echo "0 10 * * * root pkill -9 python >/proc/1/fd/1 2>/proc/1/fd/2" >/etc/cron.d/stop-python
+RUN  chmod 0644 /etc/cron.d/* 
 
-ENTRYPOINT /opt/pystock/entrypoint.sh
+COPY supervisord.conf /etc/supervisor/
+
+#ENTRYPOINT /opt/pystock/entrypoint.sh
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
