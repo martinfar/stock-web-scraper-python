@@ -5,3 +5,6 @@ docker build --progress plain -t registry.gitlab.com/vatrox05/pystock/ubuntu-tor
 
 
 docker run -it -d --name tmp-py -e SCHEDULE=@daily -m 5G --shm-size 4G --restart always registry.gitlab.com/vatrox05/pystock/ubuntu-tor:1.0
+
+
+nohup python3 csvstocks.py >> csv.log 2>&1 &

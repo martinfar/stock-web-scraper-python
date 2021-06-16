@@ -1,0 +1,338 @@
+nohup: ignoring input
+1623865651167	geckodriver	INFO	Listening on 127.0.0.1:33507
+1623865651277	mozrunner::runner	INFO	Running command: "/home/vtx/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilem7nnwo"
+*** You are running in headless mode.
+[06-16 17:47:31] Torbutton INFO: Torbutton debug output ready
+[06-16 17:47:31] Torbutton INFO: domain isolator: set up isolating circuits by domain
+[06-16 17:47:31] Torbutton INFO: Component Load 0: New DragDropFilter.
+[06-16 17:47:31] Torbutton INFO: Startup Observer created
+[06-16 17:47:31] Torbutton INFO: This is a Tor Browser's XPCOM
+[06-16 17:47:31] TorLauncher INFO: debug output ready
+[06-16 17:47:31] TorLauncher INFO: SOCKS port type: TCP
+[06-16 17:47:31] TorLauncher INFO: SOCKS host: 127.0.0.1
+[06-16 17:47:31] TorLauncher INFO: SOCKS port: 9050
+[06-16 17:47:31] Torbutton INFO: Reset socks host to 127.0.0.1
+[06-16 17:47:31] Torbutton INFO: Reset socks port to 9050
+[06-16 17:47:31] Torbutton INFO: Synced network settings to environment.
+[06-16 17:47:31] Torbutton INFO: Listening for message from NoScript.
+[06-16 17:47:31] Torbutton NOTE: Initializing security-prefs.js
+[06-16 17:47:31] Torbutton NOTE: security-prefs.js initialization complete
+[06-16 17:47:31] Torbutton INFO: Reset socks host to 127.0.0.1
+[06-16 17:47:31] Torbutton INFO: Reset socks port to 9050
+[06-16 17:47:31] Torbutton INFO: Synced network settings to environment.
+Fontconfig warning: "/home/vtx/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/TorBrowser/Data/fontconfig/fonts.conf", line 85: unknown element "blank"
+[06-16 17:47:32] Torbutton INFO: Loading tor-control-port.js
+Fontconfig warning: "/home/vtx/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/TorBrowser/Data/fontconfig/fonts.conf", line 85: unknown element "blank"
+[06-16 17:47:33] Torbutton INFO: New window
+[06-16 17:47:33] Torbutton INFO: called init()
+[06-16 17:47:33] Torbutton INFO: This is a Tor Browser
+[06-16 17:47:33] Torbutton INFO: Initializing the Torbutton button.
+[06-16 17:47:33] Torbutton INFO: get_toolbutton(): did not find torbutton-button
+[06-16 17:47:33] Torbutton INFO: get_toolbutton(): did not find torbutton-button
+[06-16 17:47:33] Torbutton INFO: get_toolbutton(): did not find torbutton-button
+[06-16 17:47:33] Torbutton INFO: Torbutton Tor Check Service initialized
+[06-16 17:47:33] Torbutton INFO: init completed
+[06-16 17:47:33] Torbutton INFO: Torbutton main window startup
+[06-16 17:47:33] Torbutton INFO: Torbutton debug output ready
+[06-16 17:47:33] Torbutton INFO: Window: (450,95) ?= (1366,768)
+[06-16 17:47:33] Torbutton DBUG: Window is normal
+[06-16 17:47:33] Torbutton INFO: controlPort << authenticate 6d5154495c484469517128464e28607d
+setevents stream
+[06-16 17:47:33] Torbutton INFO: controlPort <<
+[06-16 17:47:33] Torbutton INFO: controlPort >> 515 Authentication failed: Password did not match HashedControlPassword value from configuration. Maybe you tried a plain text password? If so, the standard requires that you put it in double quotes.
+JavaScript error: resource://torbutton/modules/tor-control-port.js, line 237: Error: authenticate 6d5154495c484469517128464e28607d -> 515 Authentication failed: Password did not match HashedControlPassword value from configuration. Maybe you tried a plain text password? If so, the standard requires that you put it in double quotes.
+[06-16 17:47:33] Torbutton NOTE: Unexpected auth response on control port 9051:515 Authentication failed: Password did not match HashedControlPassword value from configuration. Maybe you tried a plain text password? If so, the standard requires that you put it in double quotes.
+[06-16 17:47:33] Torbutton INFO: get_toolbutton(): did not find torbutton-button
+Fontconfig warning: "/home/vtx/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/TorBrowser/Data/fontconfig/fonts.conf", line 85: unknown element "blank"
+[06-16 17:47:33] Torbutton INFO: called init()
+[06-16 17:47:34] Torbutton NOTE: no SOCKS credentials found for current document.
+[06-16 17:47:35] Torbutton INFO: Message received from NoScript: [{"__meta":{"name":"started","recipientInfo":null},"_messageName":"started"}]
+Fontconfig warning: "/home/vtx/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/TorBrowser/Data/fontconfig/fonts.conf", line 85: unknown element "blank"
+[06-16 17:47:35] Torbutton INFO: tor SOCKS: https://www.https-rulesets.org/v1//latest-rulesets-timestamp via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+1623865655639	Marionette	INFO	Listening on port 42939
+1623865655714	Marionette	WARN	TLS certificate errors will be ignored for this session
+[06-16 17:47:36] Torbutton INFO: tor SOCKS: https://gurufocus.com/stock/NRG/summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:37] Torbutton INFO: tor SOCKS: https://www.https-rulesets.org/v1//latest-rulesets-timestamp via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+[06-16 17:47:40] Torbutton INFO: tor SOCKS: https://www.https-rulesets.org/v1//rulesets-signature.1614822784.sha256 via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+[06-16 17:47:40] Torbutton INFO: tor SOCKS: https://www.https-rulesets.org/v1//default.rulesets.1614822784.gz via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+[06-16 17:47:40] Torbutton INFO: tor SOCKS: https://www.https-rulesets.org/v1//rulesets-signature.1614822784.sha256 via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+[06-16 17:47:40] Torbutton INFO: tor SOCKS: https://www.https-rulesets.org/v1//default.rulesets.1614822784.gz via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+[06-16 17:47:42] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/stock/NRG/summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:45] Torbutton INFO: Torbutton debug output ready
+[06-16 17:47:45] Torbutton INFO: tor SOCKS: https://securedrop.org/https-everywhere//latest-rulesets-timestamp via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+Fontconfig warning: "/home/vtx/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/TorBrowser/Data/fontconfig/fonts.conf", line 85: unknown element "blank"
+[06-16 17:47:46] Torbutton NOTE: no SOCKS credentials found for current document.
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.googletagmanager.com/gtag/js?id=AW-1005049228 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.googletagmanager.com/gtm.js?id=GTM-K799DP4&l=dataLayer via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/f97c7db575e5e4f2d046.1623862462047.css via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/f01cc34445a4b0af7168.1623862462047.css via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://static.gurufocus.com/images/logo_small_new.png via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://static.gurufocus.com/logos/0C00000BWW.png via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/3db4565bfb1ccb93b02a.1623862460919.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/2be405ceadde48233a71.1623862460920.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/a954ef3eaea30aac8e36.1623862460920.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/a78030aade309e6dc9a6.1623862460920.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:46] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/4d8ea44d09d8e630bb3e.1623862460920.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:48] Torbutton INFO: tor SOCKS: https://code.highcharts.com/css/stocktools/gui.css via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:48] Torbutton INFO: tor SOCKS: https://code.highcharts.com/css/annotations/popup.css via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:49] Torbutton INFO: tor SOCKS: https://securedrop.org/https-everywhere//rulesets-signature.1623706089.sha256 via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+[06-16 17:47:49] Torbutton INFO: tor SOCKS: https://securedrop.org/https-everywhere//default.rulesets.1623706089.gz via
+                       --unknown--:4a02bf793e3c9b69d44ed53f69a8a7db
+[06-16 17:47:49] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:50] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:53] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/fonts/eea8ae2.1623862462047.woff via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:55] Torbutton INFO: tor SOCKS: https://www.youtube.com/player_api via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:55] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/f5883824b06b02a02639.1623862460920.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:55] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/aa1c2519d35f70fab92a.1623862460920.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:55] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/_nuxt/0a36d014cfb6487785da.1623862460920.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:55] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:56] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/favicon.ico via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:56] Torbutton INFO: tor SOCKS: https://www.youtube.com/s/player/997fe684/www-widgetapi.vflset/www-widgetapi.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:57] Torbutton INFO: tor SOCKS: https://www.google.com/pagead/conversion_async.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:58] Torbutton INFO: tor SOCKS: https://www.google-analytics.com/analytics.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:58] Torbutton NOTE: no SOCKS credentials found for current document.
+[06-16 17:47:58] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:47:59] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:00] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:00] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5/tinymce.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:00] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:00] Torbutton INFO: tor SOCKS: https://static.gurufocus.com/images/buffett_pencil_100.png via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:00] Torbutton INFO: tor SOCKS: https://static.gurufocus.com/images/login_google.png via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:00] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/time via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:01] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1005049228/?random=1623865681500&cv=9&fst=1623865681500&num=1&bg=ffffff&guid=ON&resp=GooglemKTybQhCsO&eid=2505059651&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_his=1&u_tz=0&u_java=false&u_nplug=0&u_nmime=0&gtm=2oa690&sendb=1&ig=0&data=event%3Dgtag.config%3Banonymize_ip%3Dtrue&frm=0&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tiba=NRG%20Energy%20Inc%20Stock%20Rating%20and%20Data%20%7C%20-%20GuruFocus.com&hn=www.google.com&async=1&rfmt=3&fmt=4 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:01] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1005049228/?random=1623865681500&cv=9&fst=1623865681500&num=1&fmt=3&bg=ffffff&guid=ON&resp=GooglemKTybQhCsO&eid=2505059651&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_his=1&u_tz=0&u_java=false&u_nplug=0&u_nmime=0&gtm=2oa690&sendb=1&ig=0&data=event%3Dgtag.config%3Bpage_path%3D%2Fstock%2FNRG%2Fsummary&frm=0&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tiba=NRG%20Energy%20Inc%20Stock%20Rating%20and%20Data%20%7C%20-%20GuruFocus.com&hn=www.google.com&async=1 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:01] Torbutton INFO: tor SOCKS: https://www.google-analytics.com/gtm/js?id=GTM-5KZM8WM&cid=291884116.1623865682 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:02] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pagead/js/r20210610/r20190131/show_ads_impl_with_ama_fy2019.js?client=ca-pub-4020868656364652&plah=www.gurufocus.com&amaexp=1 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:02] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/html/r20210610/r20190131/zrt_lookup.html via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:02] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/tinymce.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:02] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:02] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.google-analytics.com/j/collect?v=1&_v=j90&a=964266304&t=pageview&_s=1&dl=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&dp=%2Fstock%2FNRG%2Fsummary&ul=en-us&de=UTF-8&dt=NRG%20Energy%20Inc%20Stock%20Rating%20and%20Data%20%7C%20-%20GuruFocus.com&sd=24-bit&sr=1000x600&vp=1000x600&je=0&_u=aGBAAEADQAAAAC~&jid=703782935&gjid=466057279&cid=291884116.1623865682&tid=UA-21017515-1&_gid=1877614821.1623865682&_r=1&_slc=1&z=509014164 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/menu/70,73,74,75,76,77,78,79,80,81,84,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,3829,33,65,31,54,85,34,51,19,64,38,39,36,35,37,30628/result via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://sp.tinymce.com/i?aid=xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c&tna=tinymce_cloud&p=web&dtm=1623865683400&stm=1623865683400&tz=UTC&e=se&se_ca=script_load via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/themes/silver/theme.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.google.com/pagead/1p-user-list/1005049228/?random=1623865681500&cv=9&fst=1623862800000&num=1&bg=ffffff&guid=ON&eid=2505059651&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_his=1&u_tz=0&u_java=false&u_nplug=0&u_nmime=0&gtm=2oa690&sendb=1&data=event%3Dgtag.config%3Banonymize_ip%3Dtrue&frm=0&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tiba=NRG%20Energy%20Inc%20Stock%20Rating%20and%20Data%20%7C%20-%20GuruFocus.com&async=1&fmt=3&is_vtc=1&random=3570657837&resp=GooglemKTybQhCsO&rmt_tld=0&ipr=y via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.google.de/pagead/1p-user-list/1005049228/?random=1623865681500&cv=9&fst=1623862800000&num=1&bg=ffffff&guid=ON&eid=2505059651&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_his=1&u_tz=0&u_java=false&u_nplug=0&u_nmime=0&gtm=2oa690&sendb=1&data=event%3Dgtag.config%3Banonymize_ip%3Dtrue&frm=0&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tiba=NRG%20Energy%20Inc%20Stock%20Rating%20and%20Data%20%7C%20-%20GuruFocus.com&async=1&fmt=3&is_vtc=1&random=3570657837&resp=GooglemKTybQhCsO&rmt_tld=1&ipr=y via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://partner.googleadservices.com/gampad/cookie.js?domain=www.gurufocus.com&callback=_gfp_s_&client=ca-pub-4020868656364652 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pagead/gen_204?id=ach_evt&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tn=DIV&cls=el-dialog__wrapper&ign=false&pw=1000&ph=600&x=0&y=460.8 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pagead/gen_204?id=ach_evt&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tn=DIV&cls=nuxt-progress&ign=false&pw=1000&ph=600&x=0&y=0 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://adservice.google.de/adsid/integrator.js?domain=www.gurufocus.com via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://adservice.google.com/adsid/integrator.js?domain=www.gurufocus.com via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.google.com/pagead/1p-user-list/1005049228/?random=1623865681500&cv=9&fst=1623862800000&num=1&fmt=3&bg=ffffff&guid=ON&eid=2505059651&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_his=1&u_tz=0&u_java=false&u_nplug=0&u_nmime=0&gtm=2oa690&sendb=1&data=event%3Dgtag.config%3Bpage_path%3D%2Fstock%2FNRG%2Fsummary&frm=0&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tiba=NRG%20Energy%20Inc%20Stock%20Rating%20and%20Data%20%7C%20-%20GuruFocus.com&async=1&is_vtc=1&random=2432325712&resp=GooglemKTybQhCsO via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/baskets/US08S5/summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/history/price?start=2011-06-16&end=2021-06-16&use_stockid=1 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/competitive_stocks_summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:03] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/chart/US08S5/valuation via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j90&tid=UA-21017515-1&cid=291884116.1623865682&jid=703782935&gjid=466057279&_gid=1877614821.1623865682&_u=aGBAAEACQAAAAC~&z=1859965013 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/icons/default/icons.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/plugins/autolink/plugin.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/plugins/link/plugin.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/plugins/image/plugin.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/plugins/lists/plugin.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/plugins/charmap/plugin.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/plugins/hr/plugin.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/plugins/paste/plugin.min.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://www.google.de/pagead/1p-user-list/1005049228/?random=1623865681500&cv=9&fst=1623862800000&num=1&fmt=3&bg=ffffff&guid=ON&eid=2505059651&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_his=1&u_tz=0&u_java=false&u_nplug=0&u_nmime=0&gtm=2oa690&sendb=1&data=event%3Dgtag.config%3Bpage_path%3D%2Fstock%2FNRG%2Fsummary&frm=0&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&tiba=NRG%20Energy%20Inc%20Stock%20Rating%20and%20Data%20%7C%20-%20GuruFocus.com&async=1&is_vtc=1&random=2432325712&resp=GooglemKTybQhCsO&ipr=y via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-4020868656364652&output=html&adk=1812271804&adf=3025194257&lmt=1623865684&plat=1%3A17825800%2C2%3A17825800%2C9%3A32776%2C16%3A8388608%2C17%3A32%2C24%3A32%2C25%3A32%2C30%3A1048576%2C32%3A32&format=0x0&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&ea=0&flash=0&pra=5&wgl=1&dt=1623865682100&bpp=100&bdt=16400&idt=1600&shv=r20210610&cbv=%2Fr20190131&ptt=9&saldr=aa&abxe=1&nras=1&correlator=7254574565583&frm=20&pv=2&ga_vid=291884116.1623865682&ga_sid=1623865685&ga_hid=964266304&ga_fc=0&u_tz=0&u_his=1&u_java=0&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_nplug=0&u_nmime=0&adx=-12245933&ady=-12245933&biw=1000&bih=600&scr_x=0&scr_y=0&eid=44744336%2C31061048&oid=3&pvsid=2145251905135121&pem=504&eae=2&fc=1920&brdim=0%2C0%2C0%2C0%2C1000%2C0%2C1000%2C600%2C1000%2C600&vis=1&rsz=%7C%7Cs%7C&abl=NS&fu=32768&bc=29&ifi=1&uci=a!1&dtd=2700 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1o1core via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-4020868656364652&output=html&h=90&slotname=7043768341&adk=1273068742&adf=3645648095&pi=t.ma~as.7043768341&w=1200&lmt=1623865684&rafmt=11&psa=0&format=1200x90&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&flash=0&wgl=1&dt=1623865682100&bpp=100&bdt=16300&idt=1900&shv=r20210610&cbv=%2Fr20190131&ptt=9&saldr=aa&abxe=1&prev_fmts=0x0&nras=1&correlator=7254574565583&frm=20&pv=1&ga_vid=291884116.1623865682&ga_sid=1623865685&ga_hid=964266304&ga_fc=0&u_tz=0&u_his=1&u_java=0&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_nplug=0&u_nmime=0&adx=10&ady=78&biw=1000&bih=600&scr_x=0&scr_y=0&eid=44744336%2C31061048&oid=3&pvsid=2145251905135121&pem=504&eae=0&fc=1920&brdim=0%2C0%2C0%2C0%2C1000%2C0%2C1000%2C600%2C1000%2C600&vis=1&rsz=%7C%7CopeE%7C&abl=CS&pfx=0&fu=128&bc=29&ifi=2&uci=a!2&xpc=L28lYvuID3&p=https%3A//www.gurufocus.com&dtd=2800 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-4020868656364652&output=html&h=90&slotname=7043768341&adk=1453507331&adf=781367706&pi=t.ma~as.7043768341&w=1200&lmt=1623865684&rafmt=11&psa=0&format=1200x90&url=https%3A%2F%2Fwww.gurufocus.com%2Fstock%2FNRG%2Fsummary&flash=0&wgl=1&dt=1623865682100&bpp=1&bdt=16200&idt=2000&shv=r20210610&cbv=%2Fr20190131&ptt=9&saldr=aa&abxe=1&prev_fmts=0x0%2C1200x90&nras=1&correlator=7254574565583&frm=20&pv=1&ga_vid=291884116.1623865682&ga_sid=1623865685&ga_hid=964266304&ga_fc=0&u_tz=0&u_his=1&u_java=0&u_h=600&u_w=1000&u_ah=600&u_aw=1000&u_cd=24&u_nplug=0&u_nmime=0&adx=0&ady=5690&biw=1000&bih=600&scr_x=0&scr_y=0&eid=44744336%2C31061048&oid=3&pvsid=2145251905135121&pem=504&eae=0&fc=1920&brdim=0%2C0%2C0%2C0%2C1000%2C0%2C1000%2C600%2C1000%2C600&vis=1&rsz=%7C%7CoeEbr%7C&abl=CS&pfx=0&fu=128&bc=29&ifi=3&uci=a!3&btvi=1&xpc=4DAHWHL0d1&p=https%3A//www.gurufocus.com&dtd=2800 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:04] Torbutton INFO: tor SOCKS: https://www.googletagservices.com/activeview/js/current/osd.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:05] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pagead/gen_204?id=adfil-imp&wp=ca-pub-4020868656364652&c=3&n=0&t=0&w=677&x=100 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:06] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/skins/ui/oxide/skin.min.css via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:07] Torbutton NOTE: no SOCKS credentials found for current document.
+[06-16 17:48:07] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/skins/ui/oxide/content.min.css via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:07] Torbutton INFO: tor SOCKS: https://cdn.tiny.cloud/1/xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c/tinymce/5.8.1-113/skins/content/default/content.min.css via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://sp.tinymce.com/i?aid=xfli4zk8nqwi7onsi4cqfz3e67p26wd3lh3bym9l67xplf9c&tna=tinymce_cloud&p=web&dtm=1623865688200&stm=1623865688200&tz=UTC&e=se&se_ca=init via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://tpc.googlesyndication.com/simgad/4021913085306291476?sqp=4sqPyQQ7QjkqNxABHQAAtEIgASgBMAk4A0DwkwlYAWBfcAKAAQGIAQGdAQAAgD-oAQGwAYCt4gS4AV_FAS2ynT4&rs=AOga4qlXlm9mQOBfLJmzG7K5kL_zYhZdXg via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://tpc.googlesyndication.com/pagead/js/r20210610/r20110914/abg_lite_fy2019.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://tpc.googlesyndication.com/pagead/js/r20210610/r20110914/client/window_focus_fy2019.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://www.googletagservices.com/activeview/js/current/rx_lidar.js?cache=r20110914 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://tpc.googlesyndication.com/pagead/js/r20210610/r20110914/client/qs_click_protection_fy2019.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://tpc.googlesyndication.com/pagead/js/r20210610/r20110914/client/one_click_handler_one_afma_fy2019.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/adview?ai=CwqSHWDnKYJ-HHZH1zQbvjIHwDPiKlJ5jjY_XoM0NgOnYiJwOEAEgj4DvAmCVAqABiKvDwAPIAQKpAiDpF6Hprrc-qAMByAPJBKoEywFP0D_hWS6jIw4tVM2U4_Suk3b1PB3Rm_3rnatuHx92Dn-gZ8cB7nHzkhmxMK5elen5CeAKlmP-NtgjWKP32JYeJMnrBUhde8yvA_bmnPKzSjRa9yq2BsOUZj55gqaID3NLWxop3aD1HompzgyjjvWnbZCrmBPJ9obLn2lGYTtJAuMLEfXgwg6stRwzMcDz9OeNdFERS6ZFkvp1yBDuzKMznCagsPnCq-X1NdgqE3c8EE_jf1B1AWIv-gZOo-PVjUB2W_9ub4Uc-cavysAEnp_d9L8DoAYCgAfg1Lw_qAeKnLECqAfVyRuoB_DZG6gH8tkbqAeOzhuoB5PYG6gHugaoB-6WsQKoB6a-G6gH7NUb2AcB8gcDEPtD0ggJCIDhgBAQARgfgAoByAsB2BMD0BUBmBYBgBcBshcaChgIABIUcHViLTQwMjA4Njg2NTYzNjQ2NTI&sigh=wopZCLoIVtU via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://www.google.com/ads/ga-audiences?t=sr&aip=1&_r=4&slf_rd=1&v=1&_v=j90&tid=UA-21017515-1&cid=291884116.1623865682&jid=703782935&_u=aGBAAEACQAAAAC~&z=853635455 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:08] Torbutton INFO: tor SOCKS: https://www.google.de/ads/ga-audiences?t=sr&aip=1&_r=4&slf_rd=1&v=1&_v=j90&tid=UA-21017515-1&cid=291884116.1623865682&jid=703782935&_u=aGBAAEACQAAAAC~&z=853635455 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:09] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:10] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:10] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:10] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:10] Torbutton INFO: tor SOCKS: http://ocsp.pki.goog/gts1c3 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:10] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/drt/s?v=r20120211 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:11] Torbutton NOTE: no SOCKS credentials found for current document.
+[06-16 17:48:11] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/getconfig/sodar?sv=200&tid=gda&tv=r20210610&st=env via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:11] Torbutton INFO: tor SOCKS: https://www.google.com/pagead/drt/ui via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:11] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/bg/9Oz68fYJuErojwndJ1mJpBgGu1h29Iiv5CuhDGRMGcI.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:11] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/drt/si via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:12] Torbutton INFO: tor SOCKS: https://tpc.googlesyndication.com/sodar/sodar2.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:12] Torbutton INFO: tor SOCKS: https://googleads.g.doubleclick.net/pagead/adview?ai=CTFXXWDnKYJ-HHZH1zQbvjIHwDPiKlJ5jjY_XoM0NgOnYiJwOEAEgj4DvAmCVAqABiKvDwAPIAQKpAiDpF6Hprrc-qAMBqgTLAU_QP-FZLqMjDi1UzZTj9K6TdvU8HdGb_eudq24fH3YOf6BnxwHucfOSGbEwrl6V6fkJ4AqWY_422CNYo_fYlh4kyesFSF17zK8D9uac8rNKNFr3KrYGw5RmPnmCpogPc0tbGindoPUeianODKOO9adtkKuYE8n2hsufaUZhO0kC4wsR9eDCDqy1HDMxwPP05410URFLpkWS-nXIEO7MozOcJqCw-cKr5fU12CoTdzwQT-N_UHUBYi_6Bk6j49WNQHZb_25vhRz5xq_KwASen930vwOgBgKAB-DUvD-oB4qcsQKoB9XJG6gH8NkbqAfy2RuoB47OG6gHk9gbqAe6BqgH7paxAqgHpr4bqAfs1RvYBwHyBwMQ-0PSCAkIgOGAEBABGB-ACgHICwHYEwPQFQGYFgGAFwGyFxoKGAgAEhRwdWItNDAyMDg2ODY1NjM2NDY1Mg&sigh=K6xOSp4OE_s&vt=1 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:12] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pcs/activeview?xai=AKAOjssyu7Tj_RTtTvKDLlqTkPVit1q4EDaXw7OeBnNSPLwwtj6MP7Xq16XpT9jlIwMWjdnXr9R80m4k9grlCWdUuQ2Osi_twsx0xWd1LSRLgCJYKf75PFMx92g0K1RKDg&sai=AMfl-YRWyAqKgyqKm0J24jvlKjy7YHRnAT7rJJeKkV9j2wJVhVgK1_VoLnWP-NLAf6kfm1dSbNDJdGWglw-D&sig=Cg0ArKJSzHMX8Dd8742kEAE&id=lidar2&mcvt=1200&p=78,243,168,978&mtos=1200,1200,1200,1200,1200&tos=1200,0,0,0,0&v=20210611&bin=7&avms=nio&bs=0,0&mc=1&if=1&app=0&itpl=4&adk=1273068742&rs=2&met=mue&la=0&cr=0&osd=1&vs=4&eosm=0&rst=19100&dlt=0&rpt=6500&isd=0&msd=0&r=v via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:12] Torbutton INFO: tor SOCKS: https://tpc.googlesyndication.com/sodar/sodar2/223/runner.html via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:12] Torbutton INFO: tor SOCKS: https://www.google.com/recaptcha/api2/aframe via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:12] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/messages?symbol=US08S5&catergory=15&page=1&per_page=5&sort=datestamp%7Cdesc via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:12] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/messages?symbol=US08S5&page=1&per_page=5&sort=datestamp%7Cdesc&detail=false via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:13] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/bg/9Oz68fYJuErojwndJ1mJpBgGu1h29Iiv5CuhDGRMGcI.js via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+JavaScript warning: https://pagead2.googlesyndication.com/bg/9Oz68fYJuErojwndJ1mJpBgGu1h29Iiv5CuhDGRMGcI.js line 1 > eval line 5381 > eval, line 1: WebGL warning: <Create>: getContext: Disallowing antialiased backbuffers due to blacklisting. (FEATURE_FAILURE_OPENGL_1)
+JavaScript warning: https://pagead2.googlesyndication.com/bg/9Oz68fYJuErojwndJ1mJpBgGu1h29Iiv5CuhDGRMGcI.js line 1 > eval line 5381 > eval, line 1: WebGL warning: <Create>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://pagead2.googlesyndication.com/bg/9Oz68fYJuErojwndJ1mJpBgGu1h29Iiv5CuhDGRMGcI.js line 1 > eval line 5381 > eval, line 1: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+[06-16 17:48:14] Torbutton INFO: tor SOCKS: https://pagead2.googlesyndication.com/pagead/gen_204?id=sodar2&v=223&t=2&li=gda_r20210610&jk=2145251905135121&bg=!cnGlcTXNAAY2kFOVNpA7ACkAdvg8WgzriVrjFnLE-hP3DJkR87YT8MBagrTz1MvYDbnmLhh5nrRhCAIAAAGQUgAAAABoAQcKAOA1TceWXj2dWIsVMsBsTUntsEMFT5aegSSPX_5ehqd3J1XJzcuToShMlL-l6lDGLZXmRSS4PiH27lOX2ZrH78_InaZ_5TdJuZIm4Gtk6l_L6L2w-ysIOe2vHhoU4qy_Crw0DGm7BQGqWRyrW7yL1hojTl1x6El9IK1ZPWZZYrj5jl1f5as5eH_wlLjGAbvZsueiIhuujPOyY1pRspg6zyaiDYsje-EMU-jYegKAMsQIjfSDXHRRinpjVm8woSnarAwWgfy-EWTC1vSeji6FEoRaexlQHNBOV73rtAwq1ZNVJJkCWJnaPKeqkYlgHnpxFZONCllQrWtdKKX9o-fbdHQRjIxN8R1o5y6GDc_Q94-9SIfoMBLjk5mr-sLoUYIZQ_iyG2ALRzAEv5f6BXBkNS6LX7s7zNoOm5KfVdeNFNzI_AV0YQv08OkiVk1CiM2TLHo_EQhDBqAlhob2ssdq9ynRDsXW3fRqEyYwPz0ymjOm_LKMoeero3x-oE8Hsu4p-wi2_LMsStowZCX4xFtJcFEvofuuaQOMqv8x0JCpKKH53AWhwDSPtJv7-TecgyPeme2kp7XHO-5wfErCq_JtlOqkv54Cf9DvodqcI0MZww9xvKXUMX9HOVTBeLhYDZp_2UrrM17KlzlglrfJzNy33oRkC5Bvld2fftBFmj-EuE7nflA8CpOyiePBftgRlrdtd3U8PaT6l56yV44t1PXcZLpb2PzbIi8zkNBAIct2UnRA8VYNiKCvgbaw1A6v7xQQWAgWipQYjYiGXZ2z-aC-VAR8RgQw3nNGhlJCJLmLMhaofrAGOuY7g2blsfzDXSbGU2UihrbyXno76_Pf4akdt9FCHBCKN454KKLyB2RW02hkk6LFmDCmhvCsUSIm2Gjt54fcIrytIArSoNspqSsPproPgZpQ5izrkI9_dEeJ3BtZYuhnTZ7yRBEV7seZF_NV0iMQEdKblOUvQ2PP5ikAmKZrax9fo3jRenhyf0P74sgR7KTU-loWNN-OUs5Us0fnc81R8sosIFUNjv0l0wB1skF7r2zo1XLVSG-QoFFN2vdmNGTjylHHKDQ1pnUXVVcGS0jpbdLz7iqWZaBTmQ via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/messages?main_symbol=US08S5&page=1&per_page=2&sort=datestamp%7Cdesc&detail=false via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/financials_summary?type=annual&length=12 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/operating_summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/peterlynchchart/US08S5 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/trades?page=1&per_page=50&guru_name=&group=basic&sort=portdate%7Cdesc via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/competitive_stocks_summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/insiders via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/trades/history?type=number&portdate=2019-06-16&level=basic via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/history/insider via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/estimate via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:24] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/headlines?symbol=US08S5&page=1&per_page=30 via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:25] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/NYSE:VST/summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:27] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/indicators/price/history via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:28] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5/indicators/price/history via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:30] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/NAS:TERP/summary via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:32] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5,US0QJJ/historical_price_return via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:33] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/stocks/US08S5,US0QJJ/history/price?start=2006-06-16&end=2021-06-16&use_stockid=true via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:48:58] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/time via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963
+[06-16 17:49:58] Torbutton INFO: tor SOCKS: https://www.gurufocus.com/reader/_api/time via
+                       gurufocus.com:96ad914df2e76c7370414c625af44963

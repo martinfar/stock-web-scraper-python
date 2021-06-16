@@ -21,7 +21,7 @@ def send_email ( valuation_data, result_path ):
     sender_email = "relatio.sa@gmail.com"
     receiver_email = "relatio.sa@gmail.com"
     message = MIMEMultipart("alternative")
-    message["Subject"] = "Stock Report "+ date_str + "  Ticker " + valuation_data.ticker 
+    message["Subject"] = "Stock Report "+ date_str + "  Ticker " + valuation_data.ticker + " "+ valuation_data.valuation 
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -36,14 +36,38 @@ def send_email ( valuation_data, result_path ):
     part = MIMEText(html, "html")
     message.attach(part)
 
+    with open('/Users/jerry/img1.png', 'rb') as f:
+        # set attachment mime and file name, the image type is png
+        mime = MIMEBase('image', 'png', filename='img1.png')
+        # add required header data:
+        mime.add_header('Content-Disposition', 'attachment', filename='img1.png')
+        mime.add_header('X-Attachment-Id', '0')
+        mime.add_header('Content-ID', '<0>')
+        # read attachment file content into the MIMEBase object
+        mime.set_payload(f.read())
+        # encode with base64
+        encoders.encode_base64(mime)
+        # add MIMEBase object to MIMEMultipart object
+        msg.attach(mime)
+
     for image_name in img_paths:
         fp = open(image_name, 'rb')
         image = MIMEImage(fp.read())
-        fp.close()
-
+        
         # Specify the  ID according to the img src in the HTML part
         image.add_header('Content-ID', '<'+image_name+'>')
         message.attach(image)
+        mime = MIMEBase('image', 'png', filename=image_name)
+        # add required header data:
+        mime.add_header('Content-Disposition', 'attachment', filename=image_name)
+        mime.add_header('X-Attachment-Id', image_name+'-attch')
+        mime.add_header('Content-ID', '<'+image_name+'-attch>')
+        # read attachment file content into the MIMEBase object
+        mime.set_payload(fp.read())
+        # encode with base64
+        encoders.encode_base64(mime)
+        message.attach(mime)
+        fp.close()
 
     # send your email
     with smtplib.SMTP(smtp_server, smtp_port) as server:
