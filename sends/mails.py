@@ -1,6 +1,8 @@
 import smtplib
+import email.encoders as encoders
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
+from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoader
 from os.path import join, dirname, realpath
@@ -35,20 +37,6 @@ def send_email ( valuation_data, result_path ):
 
     part = MIMEText(html, "html")
     message.attach(part)
-
-    with open('/Users/jerry/img1.png', 'rb') as f:
-        # set attachment mime and file name, the image type is png
-        mime = MIMEBase('image', 'png', filename='img1.png')
-        # add required header data:
-        mime.add_header('Content-Disposition', 'attachment', filename='img1.png')
-        mime.add_header('X-Attachment-Id', '0')
-        mime.add_header('Content-ID', '<0>')
-        # read attachment file content into the MIMEBase object
-        mime.set_payload(f.read())
-        # encode with base64
-        encoders.encode_base64(mime)
-        # add MIMEBase object to MIMEMultipart object
-        msg.attach(mime)
 
     for image_name in img_paths:
         fp = open(image_name, 'rb')
