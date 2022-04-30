@@ -52,15 +52,16 @@ def ticker_scraper(result_path, ticker, tbb_path):
     try:
             firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True) 
             firefox_driver.get('https://gurufocus.com/stock/'+ ticker+'/summary')
-            fondos = firefox_driver.find_elements_by_class_name("v-modal")
-            print("===============================================================================")
-            print("================================    fondos    =================================")
-            print("===============================================================================")           
-            for fondo in fondos:
-                print(fondo.text)
-                firefox_driver.execute_script("""
-                    arguments[0].parentNode.removeChild(arguments[0]);
-                    """, fondo)
+            # fondos = firefox_driver.find_elements_by_class_name("v-modal")
+            # print("===============================================================================")
+            # print("================================    fondos    =================================")
+            # print("===============================================================================")           
+            # for fondo in fondos:
+            #     print(fondo.text)
+            #     firefox_driver.execute_script("""
+            #         arguments[0].parentNode.removeChild(arguments[0]);
+            #         """, fondo)
+            firefox_driver.find_element_by_class_name("more-margin").click()
             print("===============================================================================")
             print("================================    popups    =================================")
             print("===============================================================================")                      
@@ -75,22 +76,36 @@ def ticker_scraper(result_path, ticker, tbb_path):
             print("===============================================================================")  
             element = firefox_driver.find_element_by_id("guru-investment-theses")
             print(element.text)
+
             firefox_driver.execute_script("""
                 arguments[0].scrollIntoView(true);
                 """, element)
             time.sleep(10)
+            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--small" + '.png')
             firefox_driver.set_window_size(width=1700,height=5500)
-            time.sleep(120)
+            
+            firefox_driver.execute_script("""
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                """, element)
+            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
+            firefox_driver.find_element_by_class_name("more-margin").click()
+            time.sleep(60)
 
             firefox_driver.find_element_by_class_name("more-margin").click()
 
+            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image" + '.png')     
 
             print("===============================================================================")
             print("================    Get Valuation    ==========================================")
             print("===============================================================================")  
             try:
-                                           
-                element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
+                element = firefox_driver.find_element_by_xpath('//*[@id="band"]/div/div[1]/div[3]/span/button/span')                           
+                # element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
                 print("===============================================================================")
                 print("============================= VALUATION  ======================================")
                 print("===============================================================================")
@@ -103,7 +118,8 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
                     #pagedata=firefox_driver.page_source
                     #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
-                    #        text_file.write(pagedata)                        
+                    #        text_file.write(pagedata)        
+
                     firefox_driver.save_screenshot(screenshot_fullpath)
                     
                     img_list.append(screenshot_fullpath)
