@@ -15,6 +15,8 @@ done
 #   exec go-cron "$SCHEDULE" python3 /opt/pystock/main.py
 # fi
 
+cat /opt/pystock/tor_scraper.py 
+
 python3 -W ignore /opt/pystock/main.py
 
 exec "$@"

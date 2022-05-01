@@ -10,6 +10,12 @@ import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 import sends.mails as mails
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
 
 class Ticker:  
     def __init__(self, valuation, report_paths,ticker):  
@@ -100,8 +106,26 @@ def ticker_scraper(result_path, ticker, tbb_path):
             popup_remove(firefox_driver)
             firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
 
-            time.sleep(60)
+            #      //div[@id='tab-dcf']/a
+            # dcf_element = firefox_driver.find_element_by_xpath('//div[@id="tab-dcf"]/a')
 
+
+            wait = WebDriverWait(firefox_driver, 10)
+            wait.until(EC.element_to_be_clickable((By.LINK_TEXT, 'DCF'))).click()
+
+            # firefox_driver.find_element_by_link_text('DCF').send_keys("\n")
+            # firefox_driver.find_element_by_link_text('DCF').submit()
+            dcf_element = firefox_driver.find_element_by_link_text('DCF')
+
+            print(dcf_element.text)
+            # dcf_element.click()
+            # dcf_element.send_keys(Keys.RETURN)
+            # firefox_driver.get('https://gurufocus.com/stock/' + ticker+"dcf")
+            # popup_remove(firefox_driver)
+            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+
+
+            # time.sleep(60)
 
 
 
@@ -118,18 +142,21 @@ def ticker_scraper(result_path, ticker, tbb_path):
                 print(screenshot_fullpath)
                 print(element.text)
 
-                     
+
+
 
                 if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()) :
 
                     #pagedata=firefox_driver.page_source
                     #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
-                    #        text_file.write(pagedata)        
+                    #        text_file.write(pagedata)
 
                     firefox_driver.save_screenshot(screenshot_fullpath)
-                    
+
                     img_list.append(screenshot_fullpath)
                     valuation = Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
+
+
                     try:
                         mails.send_email(valuation,result_path)
                     except Exception as e:
@@ -151,16 +178,20 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
 
 def popup_remove(firefox_driver):
-    popups = firefox_driver.find_elements_by_class_name("el-dialog__wrapper")
-    for popup in popups:
-        print(popup.text)
-        firefox_driver.execute_script("""
-                    arguments[0].parentNode.removeChild(arguments[0]);
-                    """, popup)
+    try:
+        popups = firefox_driver.find_elements_by_class_name("el-dialog__wrapper")
+        for popup in popups:
+            print(popup.text)
+            firefox_driver.execute_script("""
+                        arguments[0].parentNode.removeChild(arguments[0]);
+                        """, popup)
 
 
-    v_modals = firefox_driver.find_elements_by_class_name("v-modal")
-    for v_modal in v_modals:
-        firefox_driver.execute_script("""
-                    arguments[0].parentNode.removeChild(arguments[0]);
-                    """, v_modal)
+        v_modals = firefox_driver.find_elements_by_class_name("v-modal")
+        for v_modal in v_modals:
+            firefox_driver.execute_script("""
+                        arguments[0].parentNode.removeChild(arguments[0]);
+                        """, v_modal)
+    except Exception as e:
+            print(e)
+
