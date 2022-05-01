@@ -10,12 +10,11 @@ services:
     shm_size: 4G  
     cpu_count: 1
     cpu_percent: 80
-    mem_limit: 1000m      
+    mem_limit: 3000m      
     environment:
       - "JAVA_OPTS= -Denv=DEV -DenableManagementApi=true  -DenablePrometheusApi=true -Duser.timezone=America/Santiago"
       - "JVM_MEM_OPTS= -Xms256m -Xmx512m -XX:+ExitOnOutOfMemoryError -XX:MaxHeapFreeRatio=30 -XX:MinHeapFreeRatio=15"
-      - "JAEGER_ENDPOINT=http://jaeger-collector:14268/api/traces"
-    user: "0:0"      
+      - "JAEGER_ENDPOINT=http://jaeger-collector:14268/api/traces"  
     volumes:
       # mounting configurations
       - ./torrc:/etc/tor/torrc
@@ -23,7 +22,8 @@ services:
       - ./sends:/opt/pystock/sends
       - ./main.py:/opt/pystock/main.py
       - ./tor_scraper.py:/opt/pystock/tor_scraper.py 
-      - ./entrypoint.sh:/opt/pystock/entrypoint.sh     
+      - ./entrypoint.sh:/opt/pystock/entrypoint.sh  
+      - ./stock-results:/opt/pystock/stock-results   
 #     networks:
 #        - wso2
 # networks:

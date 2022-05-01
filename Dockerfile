@@ -42,7 +42,7 @@ RUN tar --strip 1 -xvJf "${TOR_BINARY##*/}" && \
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3       
 RUN pip3 install --no-cache-dir --upgrade pip 
 RUN pip3 --version              
-RUN	pip3 install requests \
+RUN	pip3 install -U urllib3 requests \
           timeunit       \
           pillow         \
           finvizfinance  \

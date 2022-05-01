@@ -25,8 +25,11 @@ def guru_scraper (tbb_path,result_path,tickers_list):
     valuations = []
 
     start = time.time()
-    for ticker in tickers_list:
-        valuations = ticker_scraper(result_path, ticker, tbb_path)
+
+    valuations = ticker_scraper(result_path, "F", tbb_path)
+
+    # for ticker in tickers_list:
+    #     valuations = ticker_scraper(result_path, ticker, tbb_path)
     processes = []
     #with ThreadPoolExecutor(max_workers=2) as executor:
     #    args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
@@ -50,27 +53,29 @@ def ticker_scraper(result_path, ticker, tbb_path):
     print("===============================================================================")
     
     try:
-            firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True) 
-            firefox_driver.get('https://gurufocus.com/stock/'+ ticker+'/summary')
+            firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True, tbb_logfile_path=result_path+'tbselenium.log') 
+            firefox_driver.get('https://gurufocus.com/stock/'+ ticker) #+'/summary')
             # fondos = firefox_driver.find_elements_by_class_name("v-modal")
             # print("===============================================================================")
             # print("================================    fondos    =================================")
-            # print("===============================================================================")           
+            # print("===============================================================================")
             # for fondo in fondos:
             #     print(fondo.text)
             #     firefox_driver.execute_script("""
             #         arguments[0].parentNode.removeChild(arguments[0]);
             #         """, fondo)
-            firefox_driver.find_element_by_class_name("more-margin").click()
+            firefox_driver.set_window_size(width=1900,height=5500)
+            
+            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-before" + '.png')
             print("===============================================================================")
             print("================================    popups    =================================")
-            print("===============================================================================")                      
-            popups = firefox_driver.find_elements_by_class_name("el-dialog__wrapper")
-            for popup in popups:
-                print(popup.text)
-                firefox_driver.execute_script("""
-                    arguments[0].parentNode.removeChild(arguments[0]);
-                    """, popup)
+            print("===============================================================================")   
+
+            time.sleep(10)
+
+            popup_remove(firefox_driver)
+
+            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-popups" + '.png')     
             print("===============================================================================")
             print("================    guru-investment-theses    =================================")
             print("===============================================================================")  
@@ -82,7 +87,6 @@ def ticker_scraper(result_path, ticker, tbb_path):
                 """, element)
             time.sleep(10)
             firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--small" + '.png')
-            firefox_driver.set_window_size(width=1700,height=5500)
             
             firefox_driver.execute_script("""
                 window.scrollTo(0,0);
@@ -92,19 +96,21 @@ def ticker_scraper(result_path, ticker, tbb_path):
                 window.scrollTo(0,0);
                 window.scrollTo(0,0);
                 """, element)
+
+            popup_remove(firefox_driver)
             firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
-            firefox_driver.find_element_by_class_name("more-margin").click()
+
             time.sleep(60)
 
-            firefox_driver.find_element_by_class_name("more-margin").click()
 
-            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image" + '.png')     
+
 
             print("===============================================================================")
             print("================    Get Valuation    ==========================================")
             print("===============================================================================")  
             try:
-                element = firefox_driver.find_element_by_xpath('//*[@id="band"]/div/div[1]/div[3]/span/button/span')                           
+                popup_remove(firefox_driver)
+                element = firefox_driver.find_element_by_xpath('//div[@id="band"]/div/div/div/span/div/div')
                 # element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
                 print("===============================================================================")
                 print("============================= VALUATION  ======================================")
@@ -144,3 +150,17 @@ def ticker_scraper(result_path, ticker, tbb_path):
         print(e)
 
 
+def popup_remove(firefox_driver):
+    popups = firefox_driver.find_elements_by_class_name("el-dialog__wrapper")
+    for popup in popups:
+        print(popup.text)
+        firefox_driver.execute_script("""
+                    arguments[0].parentNode.removeChild(arguments[0]);
+                    """, popup)
+
+
+    v_modals = firefox_driver.find_elements_by_class_name("v-modal")
+    for v_modal in v_modals:
+        firefox_driver.execute_script("""
+                    arguments[0].parentNode.removeChild(arguments[0]);
+                    """, v_modal)

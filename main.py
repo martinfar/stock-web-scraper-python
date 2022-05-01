@@ -2,9 +2,6 @@ import logging
 import tor_scraper as ts
 import screeners.finviz_screen as fs
 import sends.mails as mails
-import multiprocessing
-import json
-import time
 
 def main():
     json_dict = {
@@ -22,13 +19,13 @@ def main():
         ,"Country":"USA"
         }  
 
-    ticket_list = fs.custom_screener(json_dict)
+    # ticket_list = fs.custom_screener(json_dict)
 
     # tbb_path="/root/"
     # result_path="/home/vtx/ops/fun-projects/stock-results/"
     tbb_path="/app/"
     result_path="/opt/pystock/stock-results/"
-    valuations = ts.guru_scraper(tbb_path=tbb_path,result_path=result_path,tickers_list=ticket_list)
+    valuations = ts.guru_scraper(tbb_path=tbb_path,result_path=result_path,tickers_list=[])
     
     print("===============================================================================")
     print("===============================   FINAL  ======================================")
