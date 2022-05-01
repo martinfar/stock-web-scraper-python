@@ -1,0 +1,31 @@
+version: "2.4"
+services:
+  tms_stock_api:
+    image: registry.gitlab.com/vatrox05/pystock/ubuntu-tor:1.0
+    restart: unless-stopped
+    # ports:
+    #   - 8280:8280
+    #   - 8243:8243
+    #   - 9154
+    shm_size: 4G  
+    cpu_count: 1
+    cpu_percent: 80
+    mem_limit: 1000m      
+    environment:
+      - "JAVA_OPTS= -Denv=DEV -DenableManagementApi=true  -DenablePrometheusApi=true -Duser.timezone=America/Santiago"
+      - "JVM_MEM_OPTS= -Xms256m -Xmx512m -XX:+ExitOnOutOfMemoryError -XX:MaxHeapFreeRatio=30 -XX:MinHeapFreeRatio=15"
+      - "JAEGER_ENDPOINT=http://jaeger-collector:14268/api/traces"
+    user: "0:0"      
+    volumes:
+      # mounting configurations
+      - ./torrc:/etc/tor/torrc
+      - ./screeners:/opt/pystock/screeners
+      - ./sends:/opt/pystock/sends
+      - ./main.py:/opt/pystock/main.py
+      - ./tor_scraper.py:/opt/pystock/tor_scraper.py 
+      - ./entrypoint.sh:/opt/pystock/entrypoint.sh     
+#     networks:
+#        - wso2
+# networks:
+#   wso2:
+#     external: true

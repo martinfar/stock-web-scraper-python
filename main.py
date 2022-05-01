@@ -24,10 +24,10 @@ def main():
 
     ticket_list = fs.custom_screener(json_dict)
 
-    tbb_path="/root/"
-    result_path="/home/vtx/ops/fun-projects/stock-results/"
-    # tbb_path="/app/"
-    # result_path="/opt/pystock/"
+    # tbb_path="/root/"
+    # result_path="/home/vtx/ops/fun-projects/stock-results/"
+    tbb_path="/app/"
+    result_path="/opt/pystock/stock-results/"
     valuations = ts.guru_scraper(tbb_path=tbb_path,result_path=result_path,tickers_list=ticket_list)
     
     print("===============================================================================")

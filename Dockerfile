@@ -39,20 +39,19 @@ RUN tar --strip 1 -xvJf "${TOR_BINARY##*/}" && \
     rm "${TOR_BINARY##*/}" "${TOR_SIGNATURE##*/}"
 
 
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3        
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3       
 RUN pip3 install --no-cache-dir --upgrade pip 
-RUN pip3 --version         
-RUN    pip3 install timeunit 
-RUN    pip3 install pillow
-RUN    pip3 install finvizfinance 
-RUN    pip3 install tbselenium 
-RUN    pip3 install pathlib 
-RUN    pip3 install pandas 
-RUN    pip3 install bs4  
-RUN    pip3 install requests  
-RUN    pip3 install jinja2
+RUN pip3 --version              
+RUN	pip3 install requests \
+          timeunit       \
+          pillow         \
+          finvizfinance  \
+          tbselenium     \
+          pandas         \
+          bs4            \
+          jinja2         
 
-RUN mkdir -p /opt/pystock
+RUN mkdir -p /opt/pystock/stock-results
 
 # Copy over the torrc created above and set the owner to `tor`
 COPY torrc /etc/tor/torrc
@@ -85,7 +84,7 @@ RUN touch /var/log/cron.log
 
 COPY supervisord.conf /etc/supervisor/
 
-#ENTRYPOINT /opt/pystock/entrypoint.sh
+ENTRYPOINT /opt/pystock/entrypoint.sh
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+# CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
