@@ -25,14 +25,17 @@ class Ticker:
 
 now = datetime.now()
 date_str = now.strftime("%m-%d-%Y")
-print("date",date_str)
+
+
 
 def guru_scraper (tbb_path,result_path,tickers_list):
+
+
     valuations = []
 
     start = time.time()
 
-    valuations = ticker_scraper(result_path, "F", tbb_path)
+    valuations = ticker_scraper(result_path, "BABA", tbb_path)
 
     # for ticker in tickers_list:
     #     valuations = ticker_scraper(result_path, ticker, tbb_path)
@@ -52,136 +55,164 @@ def ticker_scraper(result_path, ticker, tbb_path):
         os.mkdir(result_path + date_str)
     screenshot_fullpath = result_path + date_str + "/" + "guru_"+ ticker + '.png'
 
-    print("===============================================================================")
-    print("================================    INICIO    =================================")
-    print("===============================================================================")
-    print(screenshot_fullpath)
-    print("===============================================================================")
+    logging.error("===============================================================================")
+    logging.error("================================    INICIO    =================================")
+    logging.error("===============================================================================")
+    logging.error(screenshot_fullpath)
+    logging.error("===============================================================================")
     
     try:
             firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True, tbb_logfile_path=result_path+'tbselenium.log') 
             firefox_driver.get('https://gurufocus.com/stock/'+ ticker) #+'/summary')
             # fondos = firefox_driver.find_elements_by_class_name("v-modal")
-            # print("===============================================================================")
-            # print("================================    fondos    =================================")
-            # print("===============================================================================")
+            # logging.info("===============================================================================")
+            # logging.info("================================    fondos    =================================")
+            # logging.info("===============================================================================")
             # for fondo in fondos:
-            #     print(fondo.text)
+            #     logging.info(fondo.text)
             #     firefox_driver.execute_script("""
             #         arguments[0].parentNode.removeChild(arguments[0]);
             #         """, fondo)
-            firefox_driver.set_window_size(width=1900,height=5500)
+            firefox_driver.set_window_size(width=1900,height=6500)
             
-            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-before" + '.png')
-            print("===============================================================================")
-            print("================================    popups    =================================")
-            print("===============================================================================")   
+            # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-before" + '.png')
+            logging.info("===============================================================================")
+            logging.info("================================    popups    =================================")
+            logging.info("===============================================================================")   
 
             time.sleep(10)
 
             popup_remove(firefox_driver)
 
-            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-popups" + '.png')     
-            print("===============================================================================")
-            print("================    guru-investment-theses    =================================")
-            print("===============================================================================")  
+            # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-popups" + '.png')
+            logging.info("===============================================================================")
+            logging.info("================    guru-investment-theses    =================================")
+            logging.info("===============================================================================")  
             element = firefox_driver.find_element_by_id("guru-investment-theses")
-            print(element.text)
+            logging.info(element.text)
 
             firefox_driver.execute_script("""
                 arguments[0].scrollIntoView(true);
                 """, element)
-            time.sleep(10)
-            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--small" + '.png')
-            
-            firefox_driver.execute_script("""
-                window.scrollTo(0,0);
-                window.scrollTo(0,0);
-                window.scrollTo(0,0);
-                window.scrollTo(0,0);
-                window.scrollTo(0,0);
-                window.scrollTo(0,0);
-                """, element)
+
+            time.sleep(30)
+
+            # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--small" + '.png')
+
+            scroll_page(element, firefox_driver)
 
             popup_remove(firefox_driver)
             firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
-
-            #      //div[@id='tab-dcf']/a
-            # dcf_element = firefox_driver.find_element_by_xpath('//div[@id="tab-dcf"]/a')
-
-
-            wait = WebDriverWait(firefox_driver, 10)
-            wait.until(EC.element_to_be_clickable((By.LINK_TEXT, 'DCF'))).click()
-
-            # firefox_driver.find_element_by_link_text('DCF').send_keys("\n")
-            # firefox_driver.find_element_by_link_text('DCF').submit()
-            dcf_element = firefox_driver.find_element_by_link_text('DCF')
-
-            print(dcf_element.text)
-            # dcf_element.click()
-            # dcf_element.send_keys(Keys.RETURN)
-            # firefox_driver.get('https://gurufocus.com/stock/' + ticker+"dcf")
-            # popup_remove(firefox_driver)
-            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
-
 
             # time.sleep(60)
 
 
 
-            print("===============================================================================")
-            print("================    Get Valuation    ==========================================")
-            print("===============================================================================")  
+            logging.info("===============================================================================")
+            logging.info("================    Get Valuation    ==========================================")
+            logging.info("===============================================================================")  
             try:
                 popup_remove(firefox_driver)
-                element = firefox_driver.find_element_by_xpath('//div[@id="band"]/div/div/div/span/div/div')
-                # element = firefox_driver.find_element_by_xpath("//div[@id='band']/div/div/div[3]/span/button/span")
-                print("===============================================================================")
-                print("============================= VALUATION  ======================================")
-                print("===============================================================================")
-                print(screenshot_fullpath)
-                print(element.text)
+                time.sleep(60)
+                valuation_text = firefox_driver.find_element_by_xpath('//div[@id="band"]/div/div/div/span/div/div')
+                logging.info("===============================================================================")
+                logging.info("============================= VALUATION  ======================================")
+                logging.info("===============================================================================")
+                logging.info(screenshot_fullpath)
+                logging.info(valuation_text.text)
 
 
 
 
-                if ('undervalued' in element.text.lower()) or ('fair' in element.text.lower()) :
+                if ('undervalued' in valuation_text.text.lower()) or ('fair' in valuation_text.text.lower()) :
 
                     #pagedata=firefox_driver.page_source
                     #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
                     #        text_file.write(pagedata)
 
+
                     firefox_driver.save_screenshot(screenshot_fullpath)
 
                     img_list.append(screenshot_fullpath)
-                    valuation = Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
+
+
+                    # DCF screen
+                    wait = WebDriverWait(firefox_driver, 10)
+                    wait.until(EC.element_to_be_clickable((By.LINK_TEXT, 'DCF'))).click()
+
+                    popup_remove(firefox_driver)
+                    dcf_element = firefox_driver.find_element_by_link_text('DCF')
+
+                    logging.info(dcf_element.text)
+
+                    scroll_page(dcf_element, firefox_driver)
+
+                    time.sleep(40)
 
 
                     try:
+                        logging.info("Try to get DCF by FCF model for Ticker: "+ticker)
+                        wait = WebDriverWait(firefox_driver, 10)
+                        wait.until(EC.element_to_be_clickable((By.XPATH, "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
+                        firefox_driver.find_element_by_xpath("//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span").click()
+                    except Exception as e:
+                        logging.info(e)
+
+
+                    firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+
+
+
+                    valuation = Ticker(valuation=valuation_text.text,report_paths=img_list,ticker=ticker)
+
+
+                    try:
+                        logging.info("Sending Email for Ticker: "+ticker)
                         mails.send_email(valuation,result_path)
                     except Exception as e:
-                        print(e)
-                    return Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
-            except Exception as e:
-                print(e)
+                        logging.info(e)
 
-            print("===============================================================================")
-            print("===============================   FINAL  ======================================")
-            print("===============================================================================")
+
+                    return Ticker(valuation=element.text,report_paths=img_list,ticker=ticker)
+
+            except Exception as e:
+                logging.info(e)
+
+            logging.info("===============================================================================")
+            logging.info("===============================   FINAL  ======================================")
+            logging.info("===============================================================================")
 
             firefox_driver.close()
             firefox_driver.quit()
 
-    except Exception as e:
-        print(ticker)
-        print(e)
+            os.system("pkill firefox.real")
 
+    except Exception as e:
+        logging.info(ticker)
+        logging.info(e)
+
+
+def scroll_page(element, firefox_driver):
+    firefox_driver.execute_script("""
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                window.scrollTo(0,0);
+                """, element)
+
+    firefox_driver.execute_script("""
+                window.scrollTo(0, 220);
+                """)
+
+    firefox_driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.HOME)
 
 def popup_remove(firefox_driver):
     try:
         popups = firefox_driver.find_elements_by_class_name("el-dialog__wrapper")
         for popup in popups:
-            print(popup.text)
+            logging.info(popup.text)
             firefox_driver.execute_script("""
                         arguments[0].parentNode.removeChild(arguments[0]);
                         """, popup)
@@ -193,5 +224,5 @@ def popup_remove(firefox_driver):
                         arguments[0].parentNode.removeChild(arguments[0]);
                         """, v_modal)
     except Exception as e:
-            print(e)
+            logging.info(e)
 

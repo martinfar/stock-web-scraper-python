@@ -16,7 +16,7 @@ done
 # fi
 
 cat /opt/pystock/tor_scraper.py 
-
-python3 -W ignore /opt/pystock/main.py
+#-W ignore
+python3 /opt/pystock/main.py
 
 exec "$@"

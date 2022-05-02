@@ -3,8 +3,8 @@ services:
   tms_stock_api:
     image: registry.gitlab.com/vatrox05/pystock/ubuntu-tor:1.0
     restart: unless-stopped
-    # ports:
-    #   - 8280:8280
+#    ports:
+#      - 5650:5650
     #   - 8243:8243
     #   - 9154
     shm_size: 4G  

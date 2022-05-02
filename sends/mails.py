@@ -1,3 +1,4 @@
+import logging
 import smtplib
 import email.encoders as encoders
 from email.mime.text import MIMEText
@@ -9,6 +10,8 @@ from os.path import join, dirname, realpath
 from datetime import datetime
 
 def send_email ( valuation_data, result_path ):
+
+    logging.info("Sending Email for Ticker" )
 
     img_paths = valuation_data.report_paths
     now = datetime.now()
@@ -33,7 +36,7 @@ def send_email ( valuation_data, result_path ):
     stock_info= valuation_data.ticker + " "+ valuation_data.valuation 
     html = template.render(img_paths=img_paths, stock_info=stock_info)  # this is where to put args to the template renderer
 
-    print(html)
+    logging.info(html)
 
     part = MIMEText(html, "html")
     message.attach(part)
@@ -65,6 +68,6 @@ def send_email ( valuation_data, result_path ):
         server.sendmail(
             sender_email, receiver_email, message.as_string()
             )
-    print('Sent')
+    logging.info('Sent')
 
 
