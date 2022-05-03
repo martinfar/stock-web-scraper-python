@@ -51,7 +51,7 @@ RUN	pip3 install -U urllib3  \
           pandas         \
           bs4            \
           debugpy \
-          pydevd-pycharm~=213.6777.50     \
+          pydevd-pycharm~=%213.6777.50     \
           jinja2         
 
 RUN mkdir -p /opt/pystock/stock-results

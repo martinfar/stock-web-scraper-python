@@ -5,7 +5,7 @@ import sends.mails as mails
 import pydevd_pycharm
 
 def main():
-    pydevd_pycharm.settrace('192.168.1.110', port=5650, stdoutToServer=True, stderrToServer=True)
+    # pydevd_pycharm.settrace('192.168.1.110', port=5650, stdoutToServer=True, stderrToServer=True)
     logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     logging.info("=======================   Hello Stock   ========================================")
