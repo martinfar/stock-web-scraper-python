@@ -1,6 +1,5 @@
 import time
 import timeunit as TimeUnit
-from selenium.common.exceptions import TimeoutException
 from tbselenium.tbdriver import TorBrowserDriver
 import io
 from PIL import Image
@@ -15,7 +14,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.common.exceptions import (ElementNotVisibleException,
+                                        ElementNotSelectableException,
+                                        NoSuchElementException,
+                                        TimeoutException,
+                                        StaleElementReferenceException
+                                        )
 
 
 class Ticker:  
@@ -36,10 +40,10 @@ def guru_scraper (tbb_path,result_path,tickers_list):
 
     start = time.time()
 
-    valuations = ticker_scraper(result_path, "BABA", tbb_path)
+    # valuations = ticker_scraper(result_path, "BABA", tbb_path)
 
-    # for ticker in tickers_list:
-    #     valuations = ticker_scraper(result_path, ticker, tbb_path)
+    for ticker in tickers_list:
+        valuations = ticker_scraper(result_path, ticker, tbb_path)
     processes = []
     #with ThreadPoolExecutor(max_workers=2) as executor:
     #    args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
@@ -65,15 +69,7 @@ def ticker_scraper(result_path, ticker, tbb_path):
     try:
             firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True, tbb_logfile_path=result_path+'tbselenium.log') 
             firefox_driver.get('https://gurufocus.com/stock/'+ ticker) #+'/summary')
-            # fondos = firefox_driver.find_elements_by_class_name("v-modal")
-            # logging.info("===============================================================================")
-            # logging.info("================================    fondos    =================================")
-            # logging.info("===============================================================================")
-            # for fondo in fondos:
-            #     logging.info(fondo.text)
-            #     firefox_driver.execute_script("""
-            #         arguments[0].parentNode.removeChild(arguments[0]);
-            #         """, fondo)
+
             firefox_driver.set_window_size(width=1900,height=6500)
             
             # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-before" + '.png')
@@ -100,11 +96,14 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
             scroll_page(element, firefox_driver)
 
-            time.sleep(80)
+            # time.sleep(80)
 
             # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--small" + '.png')
 
             popup_remove(firefox_driver)
+
+            scroll_user(firefox_driver)
+
             firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
 
             # time.sleep(60)
@@ -113,35 +112,26 @@ def ticker_scraper(result_path, ticker, tbb_path):
             logging.info("================    Get Valuation    ==========================================")
             logging.info("===============================================================================")  
             try:
-                scroll_page(element, firefox_driver)
+                scroll_user(firefox_driver)
                 popup_remove(firefox_driver)
-                # time.sleep(60)
+                firefox_driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                firefox_driver.find_element_by_tag_name('html').send_keys( Keys.HOME)
 
-                wait_value = WebDriverWait(firefox_driver, 15)
-                done = True
-                while done:
-                    try:
-                        firefox_driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                        firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
-                        time.sleep(2)
-                        popup_remove(firefox_driver)
-                        valuation_text = wait_value.until(EC.presence_of_element_located(
-                            (By.XPATH, '//div[@id="band"]/div/div/div/span/div/div')))
+                popup_remove(firefox_driver)
 
-                        print("clickable")
-                        # valuation_text = firefox_driver.find_element_by_xpath(
-                        #     '//div[@id="band"]/div/div/div/span/div/div')
-                        logging.info("===============================================================================")
-                        logging.info("============================= VALUATION  ======================================")
-                        logging.info("===============================================================================")
-                        logging.info(screenshot_fullpath)
-                        logging.info(valuation_text.text)
+                ignore_list = [ElementNotVisibleException, ElementNotSelectableException,NoSuchElementException,StaleElementReferenceException]
+                scroll_user(firefox_driver)
+                wait_value = WebDriverWait(firefox_driver, timeout=120, poll_frequency=4, ignored_exceptions=ignore_list )
+                valuation_text = wait_value.until(EC.presence_of_element_located(
+                    (By.XPATH, '//div[@id="band"]/div/div/div/span/div/div')))
 
-                        ticker_valuation= valuation_text.text
-                        done = False
-                    except Exception as e:
-                        logging.info(e)
-                        logging.info("Valuation reading ===========================")
+                logging.info("===============================================================================")
+                logging.info("============================= VALUATION  ======================================")
+                logging.info("===============================================================================")
+                logging.info(screenshot_fullpath)
+                logging.info(valuation_text.text)
+
+                ticker_valuation= valuation_text.text
 
                 if ('undervalued' in ticker_valuation.lower()) or ('fair' in ticker_valuation.lower()) :
 
@@ -154,57 +144,37 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     firefox_driver.save_screenshot(screenshot_fullpath)
 
                     img_list.append(screenshot_fullpath)
-                    wait_dcf = WebDriverWait(firefox_driver, 10)
-                    continue_loop = True
-                    while continue_loop:
-                        try:
 
-                            # DCF screen
+                    wait_value.until(EC.element_to_be_clickable((By.LINK_TEXT, 'DCF'))).click()
 
-                            wait_dcf.until(EC.element_to_be_clickable((By.LINK_TEXT, 'DCF'))).click()
+                    popup_remove(firefox_driver)
+                    dcf_element = firefox_driver.find_element_by_link_text('DCF')
 
-                            popup_remove(firefox_driver)
-                            dcf_element = firefox_driver.find_element_by_link_text('DCF')
+                    logging.info(dcf_element.text)
 
-                            logging.info(dcf_element.text)
+                    scroll_user(firefox_driver)
 
-                            scroll_page(dcf_element, firefox_driver)
-
-                            # time.sleep(40)
+                    scroll_page(dcf_element, firefox_driver)
 
 
-                            logging.info("Try to get DCF by FCF model for Ticker: " + ticker)
-                            wait_fcf = WebDriverWait(firefox_driver, 10)
-                            wait_fcf.until(EC.element_to_be_clickable((By.XPATH,
-                                                                   "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
 
-                            continue_loop = False
-                        except Exception as e:
-                            logging.info( e)
-                            logging.info("Error getting DCF reading ")
+                    logging.info("Try to get DCF by FCF model for Ticker: " + ticker)
+                    wait_value.until(EC.element_to_be_clickable((By.XPATH,
+                                                        "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
 
-                            # //section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span
-                    continue_loop = True
-                    while continue_loop:
-                        try:
-                            wait_dcf.until(
-                                EC.visibility_of_element_located((By.XPATH,
-                                                                             "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
-                            # //section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div[2]/div/div[3]/div/div/table/tbody/tr/td[2]
-                            wait_dcf.until(
-                                EC.visibility_of_element_located((By.XPATH,
-                                                                  "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div[2]/div/div[3]/div/div/table/tbody/tr/td[2]")))
-                            firefox_driver.save_screenshot(
-                                result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+                    wait_value.until(
+                        EC.visibility_of_element_located((By.XPATH,
+                                                         "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
+                    wait_value.until(
+                        EC.visibility_of_element_located((By.XPATH,
+                                                          "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div[2]/div/div[3]/div/div/table/tbody/tr/td[2]")))
 
-                            img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
-                            continue_loop = False
-                        except Exception as e:
-                            logging.info( e)
-                            logging.info("Error getting DCF info")
+                    firefox_driver.save_screenshot(
+                        result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+
+                    img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
 
                     valuation = Ticker(valuation=ticker_valuation,report_paths=img_list,ticker=ticker)
-
 
                     try:
                         logging.info("Sending Email for Ticker: "+ticker)
@@ -212,7 +182,6 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     except Exception as e:
                         logging.info(e)
                         logging.info("Sending Email Error for Ticker: " + ticker)
-
 
                     return Ticker(valuation=ticker_valuation,report_paths=img_list,ticker=ticker)
 
@@ -247,7 +216,7 @@ def scroll_page(element, firefox_driver):
                 window.scrollTo(0, 220);
                 """)
 
-    firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
+    firefox_driver.find_element_by_tag_name('html').send_keys( Keys.HOME)
 
 def popup_remove(firefox_driver):
     try:
@@ -267,3 +236,11 @@ def popup_remove(firefox_driver):
     except Exception as e:
             logging.info(e)
 
+def scroll_user(firefox_driver):
+    y = 10
+    for timer in range(0, 6):
+        firefox_driver.execute_script("window.scrollTo(0, " + str(y) + ")")
+        y += 10
+        time.sleep(10)
+
+    firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
