@@ -1,12 +1,15 @@
 import logging
+import os
+
 import tor_scraper as ts
 import screeners.finviz_screen as fs
 import sends.mails as mails
 import pydevd_pycharm
+import subprocess
 
 def main():
     # pydevd_pycharm.settrace('192.168.1.110', port=5650, stdoutToServer=True, stderrToServer=True)
-    logging.basicConfig(level=logging.INFO, format='%(message)s')
+    logging.basicConfig(level=logging.WARN, format='%(message)s')
 
     logging.info("=======================   Hello Stock   ========================================")
     logging.info("=======================   Hello Stock   ========================================")
@@ -14,7 +17,7 @@ def main():
 
     json_dict = {
         "Market Cap.": "Any" 
-        ,"Dividend Yield": "Over 1%" 
+        # ,"Dividend Yield": "Over 1%"
         ,"P/E": "Under 35" 
         #,"PEG": "Under 2"
         ,"Quick Ratio": "Over 1"
@@ -33,6 +36,7 @@ def main():
     # result_path="/home/vtx/ops/fun-projects/stock-results/"
     tbb_path="/app/"
     result_path="/opt/pystock/stock-results/"
+
     valuations = ts.guru_scraper(tbb_path=tbb_path,result_path=result_path,tickers_list=ticket_list)
 
     logging.info("===============================================================================")

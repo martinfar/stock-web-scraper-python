@@ -1,9 +1,12 @@
 import time
+
+import requests
 import timeunit as TimeUnit
 from tbselenium.tbdriver import TorBrowserDriver
 import io
 from PIL import Image
 import json
+import subprocess
 from datetime import datetime
 import os
 import logging
@@ -31,34 +34,57 @@ class Ticker:
 now = datetime.now()
 date_str = now.strftime("%m-%d-%Y")
 
-
+ignore_list = [ElementNotVisibleException, ElementNotSelectableException,NoSuchElementException,
+                               StaleElementReferenceException,TimeoutException, BaseException]
 
 def guru_scraper (tbb_path,result_path,tickers_list):
 
 
     valuations = []
 
-    start = time.time()
-
-    # valuations = ticker_scraper(result_path, "BABA", tbb_path)
-
+    # valuations = ticker_scraper(result_path, "ABT", tbb_path)
+    # valuations = ticker_scraper(result_path, "ACU", tbb_path)
     for ticker in tickers_list:
         valuations = ticker_scraper(result_path, ticker, tbb_path)
-    processes = []
-    #with ThreadPoolExecutor(max_workers=2) as executor:
-    #    args = ((result_path, ticker, tbb_path) for ticker in tickers_list[:1])
-    #    processes.append(executor.map(lambda p: ticker_scraper(*p), args))
-
-    #for task in as_completed(processes):
-    #    valuations.append(task.result())
 
     return valuations
+
+def tor_init():
+    subprocess.Popen("tor -f /etc/tor/torrc".split())
+
+    proxies = {
+        'http': 'socks5://127.0.0.1:9050',
+        'https': 'socks5://127.0.0.1:9050',
+    }
+    url = 'https://check.torproject.org/'
+    # Check if tor is active
+    isInTor=-1
+    while isInTor==-1 :
+        time.sleep(1)
+        response = requests.get(url, proxies=proxies, verify=False)
+
+        logging.info(response.text.find("This browser is configured to use Tor"))
+        isInTor=response.text.find("This browser is configured to use Tor")
+    return
+
+def tor_stop(firefox_driver):
+
+    os.system("pkill tor")
+    firefox_driver.close()
+    firefox_driver.quit()
+
+    os.system("pkill firefox.real")
+
+    return
+
 
 def ticker_scraper(result_path, ticker, tbb_path):
     img_list = []
     if not os.path.exists(result_path + date_str):
         os.mkdir(result_path + date_str)
     screenshot_fullpath = result_path + date_str + "/" + "guru_"+ ticker + '.png'
+    # init new tor conection
+    tor_init()
 
     logging.error("===============================================================================")
     logging.error("================================    INICIO    =================================")
@@ -114,16 +140,19 @@ def ticker_scraper(result_path, ticker, tbb_path):
             try:
                 scroll_user(firefox_driver)
                 popup_remove(firefox_driver)
-                firefox_driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                firefox_driver.find_element_by_tag_name('html').send_keys( Keys.HOME)
 
-                popup_remove(firefox_driver)
-
-                ignore_list = [ElementNotVisibleException, ElementNotSelectableException,NoSuchElementException,StaleElementReferenceException]
                 scroll_user(firefox_driver)
-                wait_value = WebDriverWait(firefox_driver, timeout=120, poll_frequency=4, ignored_exceptions=ignore_list )
-                valuation_text = wait_value.until(EC.presence_of_element_located(
-                    (By.XPATH, '//div[@id="band"]/div/div/div/span/div/div')))
+                wait_value = WebDriverWait(firefox_driver, timeout=120, poll_frequency=4,
+                                           ignored_exceptions=ignore_list)
+                try:
+                    valuation_text = wait_value.until(EC.presence_of_element_located(
+                        (By.XPATH, '//div[@id="band"]/div/div/div/span/div/div')))
+                except Exception as e:
+                    logging.info(e)
+                    logging.info("Error Getting value element")
+
+
+
 
                 logging.info("===============================================================================")
                 logging.info("============================= VALUATION  ======================================")
@@ -138,8 +167,7 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     #pagedata=firefox_driver.page_source
                     #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
                     #        text_file.write(pagedata)
-
-                    firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
+                    scroll_to_top(firefox_driver)
 
                     firefox_driver.save_screenshot(screenshot_fullpath)
 
@@ -159,16 +187,21 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
 
                     logging.info("Try to get DCF by FCF model for Ticker: " + ticker)
-                    wait_value.until(EC.element_to_be_clickable((By.XPATH,
-                                                        "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
+                    try:
+                        wait_value.until(EC.element_to_be_clickable((By.XPATH,
+                                                            "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
 
-                    wait_value.until(
-                        EC.visibility_of_element_located((By.XPATH,
-                                                         "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
-                    wait_value.until(
-                        EC.visibility_of_element_located((By.XPATH,
-                                                          "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div[2]/div/div[3]/div/div/table/tbody/tr/td[2]")))
+                        wait_value.until(
+                            EC.visibility_of_element_located((By.XPATH,
+                                                             "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
+                        wait_value.until(
+                            EC.visibility_of_element_located((By.XPATH,
+                                                              "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div[2]/div/div[3]/div/div/table/tbody/tr/td[2]")))
+                    except Exception as e:
+                        logging.info(e)
+                        logging.info("Error getting DCF ")
 
+                    scroll_to_top(firefox_driver)
                     firefox_driver.save_screenshot(
                         result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
 
@@ -182,24 +215,31 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     except Exception as e:
                         logging.info(e)
                         logging.info("Sending Email Error for Ticker: " + ticker)
+                    tor_stop(firefox_driver)
+                    logging.info("===============================================================================")
+                    logging.info("===============================   FINAL  ======================================")
+                    logging.info("===============================================================================")
 
                     return Ticker(valuation=ticker_valuation,report_paths=img_list,ticker=ticker)
 
             except Exception as e:
+                tor_stop(firefox_driver)
                 logging.info(e)
 
-            logging.info("===============================================================================")
-            logging.info("===============================   FINAL  ======================================")
-            logging.info("===============================================================================")
-
-            firefox_driver.close()
-            firefox_driver.quit()
-
-            os.system("pkill firefox.real")
 
     except Exception as e:
         logging.info(ticker)
         logging.info(e)
+        tor_stop(firefox_driver)
+
+
+def scroll_to_top(firefox_driver):
+    firefox_driver.find_element_by_tag_name('body').send_keys(Keys.HOME)
+    time.sleep(1)
+    firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
+    time.sleep(2)
+    firefox_driver.execute_script("scrollBy(0,-6500);")
+    time.sleep(3)
 
 
 def scroll_page(element, firefox_driver):
@@ -211,12 +251,7 @@ def scroll_page(element, firefox_driver):
                 window.scrollTo(0,0);
                 window.scrollTo(0,0);
                 """, element)
-
-    firefox_driver.execute_script("""
-                window.scrollTo(0, 220);
-                """)
-
-    firefox_driver.find_element_by_tag_name('html').send_keys( Keys.HOME)
+    scroll_to_top(firefox_driver)
 
 def popup_remove(firefox_driver):
     try:
@@ -243,4 +278,4 @@ def scroll_user(firefox_driver):
         y += 10
         time.sleep(10)
 
-    firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
+    scroll_to_top(firefox_driver)
