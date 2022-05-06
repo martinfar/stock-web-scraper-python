@@ -72,7 +72,6 @@ def tor_stop(firefox_driver):
     os.system("pkill tor")
     firefox_driver.close()
     firefox_driver.quit()
-
     os.system("pkill firefox.real")
 
     return
@@ -130,7 +129,7 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
             scroll_user(firefox_driver)
 
-            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
+            # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
 
             # time.sleep(60)
 

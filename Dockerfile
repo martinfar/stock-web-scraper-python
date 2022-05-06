@@ -78,15 +78,7 @@ RUN chmod 775 /opt/pystock/entrypoint.sh
 COPY go-cron /usr/local/bin/go-cron
 RUN chmod +x /usr/local/bin/go-cron
 
-RUN  echo "0 10 * * * root pkill -9 python " >/etc/cron.d/stop-python
-RUN  echo "0 10 * * * root pkill -9 firefox " >/etc/cron.d/stop-firefox
-RUN  chmod 0644 /etc/cron.d/* 
-RUN crontab /etc/cron.d/stop-python
-RUN crontab /etc/cron.d/stop-firefox
-# Create the log file to be able to run tail
-RUN touch /var/log/cron.log
-
-COPY supervisord.conf /etc/supervisor/
+#COPY supervisord.conf /etc/supervisor/
 
 ENTRYPOINT /opt/pystock/entrypoint.sh
 
