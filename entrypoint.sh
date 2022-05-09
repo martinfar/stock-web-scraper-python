@@ -19,7 +19,7 @@ find /opt/pystock/stock-results/ -type f -mtime +1 -name '*.png' -execdir rm -- 
 if [[ -z "${SCHEDULE}" ]]; then
    python3 /opt/pystock/main.py
 else
-   exec go-cron "$SCHEDULE" python3 /opt/pystock/main.py
+   exec go-cron "$SCHEDULE" bash /opt/pystock/start.sh
 fi
 
 

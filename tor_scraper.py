@@ -50,6 +50,8 @@ def guru_scraper (tbb_path,result_path,tickers_list):
     return valuations
 
 def tor_init():
+    subprocess.Popen("pkill tor".split())
+    time.sleep(2)
     subprocess.Popen("tor -f /etc/tor/torrc".split())
 
     proxies = {
@@ -68,8 +70,7 @@ def tor_init():
     return
 
 def tor_stop(firefox_driver):
-
-    os.system("pkill tor")
+    subprocess.Popen("pkill tor".split())
     firefox_driver.close()
     firefox_driver.quit()
     os.system("pkill firefox.real")

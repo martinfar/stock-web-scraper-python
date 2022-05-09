@@ -72,9 +72,10 @@ RUN ls -ltra /opt/pystock/
 WORKDIR /opt/pystock
 
 COPY entrypoint.sh /opt/pystock/.
+COPY start.sh /opt/pystock/.
 
 RUN chmod 775 /opt/pystock/entrypoint.sh
-
+RUN chmod 775 /opt/pystock/start.sh
 COPY go-cron /usr/local/bin/go-cron
 RUN chmod +x /usr/local/bin/go-cron
 
