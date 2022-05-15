@@ -50,8 +50,8 @@ def guru_scraper (tbb_path,result_path,tickers_list):
     return valuations
 
 def tor_init():
-    subprocess.Popen("pkill tor".split())
-    time.sleep(2)
+    # subprocess.Popen("pkill tor".split())
+    # time.sleep(2)
     subprocess.Popen("tor -f /etc/tor/torrc".split())
 
     proxies = {
@@ -188,8 +188,13 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
                     logging.info("Try to get DCF by FCF model for Ticker: " + ticker)
                     try:
-                        wait_value.until(EC.element_to_be_clickable((By.XPATH,
-                                                            "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
+
+                        wait = WebDriverWait(firefox_driver, 30)
+                        wait.until(EC.element_to_be_clickable((By.XPATH, "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
+                        firefox_driver.find_element_by_xpath("//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span").click()
+
+                        # wait_value.until(EC.element_to_be_clickable((By.XPATH,
+                        #                                     "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
 
                         wait_value.until(
                             EC.visibility_of_element_located((By.XPATH,
@@ -234,12 +239,14 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
 
 def scroll_to_top(firefox_driver):
+    firefox_driver.execute_script("window.scrollTo(0, -document.body.scrollHeight);")
+    time.sleep(3)
     firefox_driver.find_element_by_tag_name('body').send_keys(Keys.HOME)
     time.sleep(1)
     firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
     time.sleep(2)
-    firefox_driver.execute_script("scrollBy(0,-6500);")
-    time.sleep(3)
+
+
 
 
 def scroll_page(element, firefox_driver):

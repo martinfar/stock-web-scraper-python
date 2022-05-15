@@ -13,7 +13,7 @@ docker build --progress plain -t registry.gitlab.com/vatrox05/pystock/ubuntu-tor
 docker run -it -d --name tmp-py -e SCHEDULE=@daily -m 5G --shm-size 4G --restart always registry.gitlab.com/vatrox05/pystock/ubuntu-tor:1.0
 
 
-docker run -it -d --name tmp-py -e SCHEDULE="0 0 0 */2 *" -m 2G --cpus=1 --shm-size 4G --restart always registry.gitlab.com/vatrox05/pystock/ubuntu-tor:1.0
+docker run -it -d --name tmp-py -e SCHEDULE="0 0 0 */2 * *" -m 2G --cpus=1 --shm-size 4G --restart always registry.gitlab.com/vatrox05/pystock/ubuntu-tor:1.0
 
 
 docker-compose down && sudo rm -rf stock-results/05-*-2022/* && docker-compose up -d && docker-compose logs -f
