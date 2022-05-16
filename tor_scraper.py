@@ -37,6 +37,17 @@ date_str = now.strftime("%m-%d-%Y")
 ignore_list = [ElementNotVisibleException, ElementNotSelectableException,NoSuchElementException,
                                StaleElementReferenceException,TimeoutException, BaseException]
 
+
+def retry(fun, max_tries=10):
+    for i in range(max_tries):
+        try:
+           time.sleep(3)
+           fun()
+           break
+        except Exception:
+            continue
+
+
 def guru_scraper (tbb_path,result_path,tickers_list):
 
 
@@ -45,7 +56,8 @@ def guru_scraper (tbb_path,result_path,tickers_list):
     # valuations = ticker_scraper(result_path, "ABT", tbb_path)
     # valuations = ticker_scraper(result_path, "ACU", tbb_path)
     for ticker in tickers_list:
-        valuations = ticker_scraper(result_path, ticker, tbb_path)
+
+        valuations = retry (ticker_scraper(result_path, ticker, tbb_path),10)
 
     return valuations
 
