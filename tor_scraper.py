@@ -53,7 +53,7 @@ def guru_scraper (tbb_path,result_path,tickers_list):
 
     valuations = []
 
-    # valuations = ticker_scraper(result_path, "ABT", tbb_path)
+    # valuations = retry (ticker_scraper(result_path, "AMED", tbb_path),10)
     # valuations = ticker_scraper(result_path, "ACU", tbb_path)
     for ticker in tickers_list:
 
@@ -62,8 +62,10 @@ def guru_scraper (tbb_path,result_path,tickers_list):
     return valuations
 
 def tor_init():
-    # subprocess.Popen("pkill tor".split())
-    # time.sleep(2)
+    subprocess.Popen("pkill firefox.real".split())
+    time.sleep(2)
+    subprocess.Popen("pkill tor".split())
+    time.sleep(2)
     subprocess.Popen("tor -f /etc/tor/torrc".split())
 
     proxies = {
@@ -240,14 +242,15 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     return Ticker(valuation=ticker_valuation,report_paths=img_list,ticker=ticker)
 
             except Exception as e:
-                tor_stop(firefox_driver)
                 logging.info(e)
+                tor_stop(firefox_driver)
 
 
     except Exception as e:
         logging.info(ticker)
         logging.info(e)
         tor_stop(firefox_driver)
+
 
 
 def scroll_to_top(firefox_driver):
@@ -257,6 +260,7 @@ def scroll_to_top(firefox_driver):
     time.sleep(1)
     firefox_driver.find_element_by_tag_name('html').send_keys(Keys.CONTROL + Keys.HOME)
     time.sleep(2)
+    firefox_driver.execute_script("window.scrollTo({ top: 0, behavior: 'smooth' });")
 
 
 

@@ -24,4 +24,4 @@ docker exec -it -u 0 pystock_tms_stock_api_1 bash
 ```
 # Csv Parse
 
-`nohup python3 csvstocks.py >> csv.log 2>&1 & `
+`nohup python3 main.py >> init.log 2>&1 & `
