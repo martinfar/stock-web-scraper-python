@@ -26,10 +26,12 @@ from selenium.common.exceptions import (ElementNotVisibleException,
 
 
 class Ticker:  
-    def __init__(self, valuation, report_paths,ticker):  
+    def __init__(self, valuation, margin_value,growth_rank, report_paths,ticker):
         self.valuation = valuation  
         self.report_paths = report_paths 
-        self.ticker = ticker 
+        self.ticker = ticker
+        self.growth_rank=growth_rank
+        self.margin_value=margin_value
 
 now = datetime.now()
 date_str = now.strftime("%m-%d-%Y")
@@ -108,15 +110,12 @@ def ticker_scraper(result_path, ticker, tbb_path):
     try:
             firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True, tbb_logfile_path=result_path+'tbselenium.log') 
             firefox_driver.get('https://gurufocus.com/stock/'+ ticker) #+'/summary')
-
-            ele = firefox_driver.find_element(By.CLASS_NAME, 'main-container')
+            # ACLS
             total_height = 11000
             firefox_driver.set_window_size(width=1900, height=1000)
+            wait_value = WebDriverWait(firefox_driver, timeout=120, poll_frequency=4,
+                                       ignored_exceptions=ignore_list)
 
-
-
-
-            
             # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-before" + '.png')
             logging.info("===============================================================================")
             logging.info("================================    popups    =================================")
@@ -165,8 +164,7 @@ def ticker_scraper(result_path, ticker, tbb_path):
                 popup_remove(firefox_driver)
 
                 scroll_user(firefox_driver)
-                wait_value = WebDriverWait(firefox_driver, timeout=120, poll_frequency=4,
-                                           ignored_exceptions=ignore_list)
+
                 try:
                     valuation_text = wait_value.until(EC.presence_of_element_located(
                         (By.XPATH, '//div[@id="band"]/div/div/div/span/div/div')))
@@ -174,7 +172,16 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     logging.info(e)
                     logging.info("Error Getting value element")
 
+                try:
+                    growth_text = wait_value.until(EC.presence_of_element_located(
+                        (By.XPATH, "//div[@id='growth']/div/div/div/span/span")))
 
+                    logging.info("Growth rank: "+growth_text.text)
+                    growth_rank = growth_text.text
+                except Exception as e:
+                    growth_rank = "unknown"
+                    logging.info(e)
+                    logging.info("Error Getting growth element")
 
 
                 logging.info("===============================================================================")
@@ -185,7 +192,7 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
                 ticker_valuation= valuation_text.text
 
-                if ('undervalued' in ticker_valuation.lower()) or ('fair' in ticker_valuation.lower()) :
+                if ('undervalued' in ticker_valuation.lower()) or ('fair' in ticker_valuation.lower())  :
 
                     #pagedata=firefox_driver.page_source
                     #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
@@ -198,55 +205,16 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
                     img_list.append(screenshot_fullpath)
 
-                    wait_value.until(EC.element_to_be_clickable((By.LINK_TEXT, 'DCF'))).click()
-
-                    popup_remove(firefox_driver)
-                    dcf_element = firefox_driver.find_element_by_link_text('DCF')
-
-                    logging.info(dcf_element.text)
-
-                    scroll_user(firefox_driver)
-
-                    scroll_page(dcf_element, firefox_driver)
+                    margin_value = dcf_extraction(firefox_driver, img_list, result_path, ticker, total_height, wait_value)
 
 
-
-                    logging.info("Try to get DCF by FCF model for Ticker: " + ticker)
-                    try:
-
-                        wait = WebDriverWait(firefox_driver, 30)
-                        wait.until(EC.element_to_be_clickable((By.XPATH, "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
-                        firefox_driver.find_element_by_xpath("//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span").click()
-
-                        # wait_value.until(EC.element_to_be_clickable((By.XPATH,
-                        #                                     "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span"))).click()
-
-                        wait_value.until(
-                            EC.visibility_of_element_located((By.XPATH,
-                                                             "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
-                        wait_value.until(
-                            EC.visibility_of_element_located((By.XPATH,
-                                                              "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div[2]/div/div[3]/div/div/table/tbody/tr/td[2]")))
-                    except Exception as e:
-                        logging.info(e)
-                        logging.info("Error getting DCF ")
-
-                    scroll_to_top(firefox_driver)
-                    firefox_driver.set_window_size(1920, total_height)  # the trick
-                    time.sleep(40)
-                    firefox_driver.save_screenshot(
-                        result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
-                    firefox_driver.set_window_size(width=1900, height=1000)
-
-
-                    img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
                     img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--size" + '.png')
 
-                    valuation = Ticker(valuation=ticker_valuation,report_paths=img_list,ticker=ticker)
+                    valuation = Ticker(valuation=ticker_valuation, margin_value=margin_value , growth_rank=growth_rank ,report_paths=img_list,ticker=ticker)
 
                     try:
                         logging.info("Sending Email for Ticker: "+ticker)
-                        mails.send_email(valuation,result_path)
+                        mails.send_email(valuation, result_path)
                     except Exception as e:
                         logging.info(e)
                         logging.info("Sending Email Error for Ticker: " + ticker)
@@ -255,7 +223,7 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     logging.info("===============================   FINAL  ======================================")
                     logging.info("===============================================================================")
 
-                    return Ticker(valuation=ticker_valuation,report_paths=img_list,ticker=ticker)
+                    return Ticker(valuation=ticker_valuation, margin_value=margin_value , growth_rank=growth_rank ,report_paths=img_list,ticker=ticker)
 
             except Exception as e:
                 logging.info(e)
@@ -268,6 +236,71 @@ def ticker_scraper(result_path, ticker, tbb_path):
         tor_stop(firefox_driver)
 
 
+def dcf_extraction(firefox_driver, img_list, result_path, ticker, total_height, wait_value):
+
+    popup_remove(firefox_driver)
+    popup_remove(firefox_driver)
+    wait_value.until(EC.element_to_be_clickable((By.LINK_TEXT, 'DCF'))).click()
+    popup_remove(firefox_driver)
+    dcf_element = firefox_driver.find_element_by_link_text('DCF')
+    logging.info(dcf_element.text)
+    scroll_user(firefox_driver)
+    scroll_page(dcf_element, firefox_driver)
+
+    logging.info("Try to get DCF by FCF model for Ticker: " + ticker)
+
+    try:
+        # firefox_driver.find_element_by_xpath(
+        #     "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span/span").click()
+        scroll_to_top(firefox_driver)
+        firefox_driver.set_window_size(1920, total_height)  # the trick
+        time.sleep(40)
+        popup_remove(firefox_driver)
+        fcf_button = wait_value.until(EC.element_to_be_clickable((By.XPATH,
+                                               "//section[@id='stock-page-container']/main/div[3]/div/div/div[2]/div/div/div/div[2]/div[4]/div/label[2]/span[2]")))
+        retry(fcf_button.click(),10)
+        # time.sleep(20)
+        logging.info("FCF model for Ticker clicked")
+        firefox_driver.set_window_size(width=1900, height=1000)
+
+        # wait_value.until(
+        #     EC.visibility_of_element_located((By.XPATH,
+        #                                       "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
+        # wait_value.until(
+        #     EC.visibility_of_element_located((By.XPATH,
+        #                                       "//section[@id='stock-page-container']/main/div[2]/div/div/div[2]/div[2]/div/div[3]/div/div/table/tbody/tr/td[2]")))
+        logging.info("DCF page loaded ")
+
+    except Exception as e:
+        logging.info(e)
+        logging.info("Error getting DCF ")
+    scroll_to_top(firefox_driver)
+    firefox_driver.set_window_size(1920, total_height)  # the trick
+    time.sleep(40)
+    firefox_driver.save_screenshot(
+        result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+
+    try:
+        margin_value_text = wait_value.until(EC.presence_of_element_located(
+            (By.XPATH, "//section[@id='stock-page-container']/main/div[3]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
+
+        logging.info("Margin_value: " + margin_value_text.text)
+        margin_value = margin_value_text.text
+    except Exception as e:
+        margin_value = "unknown"
+        logging.info(e)
+        logging.info("Error Getting margin_value element")
+
+
+
+    #
+
+    # //section[@id='stock-page-container']/main/div[3]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span
+
+    firefox_driver.set_window_size(width=1900, height=1000)
+    img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+
+    return margin_value
 
 def scroll_to_top(firefox_driver):
     firefox_driver.execute_script("window.scrollTo(0, -document.body.scrollHeight);")

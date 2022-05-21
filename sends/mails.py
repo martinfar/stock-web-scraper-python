@@ -9,7 +9,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape, FileSystemLoad
 from os.path import join, dirname, realpath
 from datetime import datetime
 
-def send_email ( valuation_data, result_path ):
+def send_email ( valuation_data,  result_path ):
 
     logging.info("Sending Email for Ticker" )
 
@@ -26,14 +26,15 @@ def send_email ( valuation_data, result_path ):
     sender_email = "relatio.sa@gmail.com"
     receiver_email = "relatio.sa@gmail.com"
     message = MIMEMultipart("alternative")
-    message["Subject"] = "Stock Report "+ date_str + "  Ticker " + valuation_data.ticker + " "+ valuation_data.valuation 
+    stock_info = " Ticker " + valuation_data.ticker + " "+ valuation_data.valuation + " Margin: "+valuation_data.margin_value +" Growth:"+ valuation_data.growth_rank
+    message["Subject"] = "Stock Report "+ stock_info
     message["From"] = sender_email
     message["To"] = receiver_email
 
     templateLoader = FileSystemLoader(searchpath=dirname(realpath(__file__)))
     env = Environment(loader=templateLoader)
     template = env.get_template('template.html')
-    stock_info= valuation_data.ticker + " "+ valuation_data.valuation 
+
     html = template.render(img_paths=img_paths, stock_info=stock_info)  # this is where to put args to the template renderer
 
     logging.info(html)
