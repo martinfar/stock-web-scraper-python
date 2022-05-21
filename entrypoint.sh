@@ -20,6 +20,7 @@ if [[ -z "${SCHEDULE}" ]]; then
    python3 /opt/pystock/main.py
 else
    exec go-cron "$SCHEDULE" bash /opt/pystock/start.sh
+   python3 /opt/pystock/main.py
 fi
 
 

@@ -56,7 +56,6 @@ def guru_scraper (tbb_path,result_path,tickers_list):
     # valuations = retry (ticker_scraper(result_path, "AMED", tbb_path),10)
     # valuations = ticker_scraper(result_path, "ACU", tbb_path)
     for ticker in tickers_list:
-
         valuations = retry (ticker_scraper(result_path, ticker, tbb_path),10)
 
     return valuations
@@ -110,7 +109,13 @@ def ticker_scraper(result_path, ticker, tbb_path):
             firefox_driver = TorBrowserDriver(tbb_path=tbb_path,headless=True, tbb_logfile_path=result_path+'tbselenium.log') 
             firefox_driver.get('https://gurufocus.com/stock/'+ ticker) #+'/summary')
 
-            firefox_driver.set_window_size(width=1900,height=6500)
+            ele = firefox_driver.find_element(By.CLASS_NAME, 'main-container')
+            total_height = 11000
+            firefox_driver.set_window_size(width=1900, height=1000)
+
+
+
+
             
             # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--test-image-before" + '.png')
             logging.info("===============================================================================")
@@ -144,8 +149,12 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
             scroll_user(firefox_driver)
 
-            # firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
-
+            # class ="membership-limit-section capture-area"
+            # content_stats = firefox_driver.find_element_by (By,"membership-limit-section capture-area")
+            firefox_driver.set_window_size(1920, total_height)  # the trick
+            time.sleep(60)
+            firefox_driver.save_screenshot(result_path + date_str + "/" + "guru_"+ ticker + "--size" + '.png')
+            firefox_driver.set_window_size(width=1900, height=1000)
             # time.sleep(60)
 
             logging.info("===============================================================================")
@@ -182,8 +191,10 @@ def ticker_scraper(result_path, ticker, tbb_path):
                     #with open(result_path + date_str + "/" + ticker + '_pagedata.txt', "w") as text_file:
                     #        text_file.write(pagedata)
                     scroll_to_top(firefox_driver)
-
+                    firefox_driver.set_window_size(1920, total_height)  # the trick
+                    time.sleep(40)
                     firefox_driver.save_screenshot(screenshot_fullpath)
+                    firefox_driver.set_window_size(width=1900, height=1000)
 
                     img_list.append(screenshot_fullpath)
 
@@ -221,10 +232,15 @@ def ticker_scraper(result_path, ticker, tbb_path):
                         logging.info("Error getting DCF ")
 
                     scroll_to_top(firefox_driver)
+                    firefox_driver.set_window_size(1920, total_height)  # the trick
+                    time.sleep(40)
                     firefox_driver.save_screenshot(
                         result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+                    firefox_driver.set_window_size(width=1900, height=1000)
+
 
                     img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
+                    img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--size" + '.png')
 
                     valuation = Ticker(valuation=ticker_valuation,report_paths=img_list,ticker=ticker)
 
