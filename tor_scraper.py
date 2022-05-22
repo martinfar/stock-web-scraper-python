@@ -228,13 +228,14 @@ def ticker_scraper(result_path, ticker, tbb_path):
             except Exception as e:
                 logging.info(e)
                 tor_stop(firefox_driver)
+                raise e
 
 
     except Exception as e:
         logging.info(ticker)
         logging.info(e)
         tor_stop(firefox_driver)
-
+        raise e
 
 def dcf_extraction(firefox_driver, img_list, result_path, ticker, total_height, wait_value):
 
