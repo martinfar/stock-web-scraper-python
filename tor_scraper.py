@@ -174,7 +174,7 @@ def ticker_scraper(result_path, ticker, tbb_path):
             logging.info("Growth rank: " + growth_text.text)
             growth_rank = growth_text.text
         except Exception as e:
-            growth_rank = "unknown"
+            growth_rank = "-1"
             logging.info(e)
             logging.info("Error Getting growth element")
 
@@ -201,17 +201,17 @@ def ticker_scraper(result_path, ticker, tbb_path):
 
             margin_value = dcf_extraction(firefox_driver, img_list, result_path, ticker, total_height, wait_value)
 
-            img_list.append(result_path + date_str + "/" + "guru_" + ticker + "--size" + '.png')
-
             valuation = Ticker(valuation=ticker_valuation, margin_value=margin_value, growth_rank=growth_rank,
                                report_paths=img_list, ticker=ticker)
 
-            try:
-                logging.info("Sending Email for Ticker: " + ticker)
-                mails.send_email(valuation, result_path)
-            except Exception as e:
-                logging.info(e)
-                logging.info("Sending Email Error for Ticker: " + ticker)
+            if (float(margin_value) > 0 ) and (float(growth_rank)> 8 ):
+                try:
+                    logging.info("Sending Email for Ticker: " + ticker)
+                    mails.send_email(valuation, result_path)
+                except Exception as e:
+                    logging.info(e)
+                    logging.info("Sending Email Error for Ticker: " + ticker)
+
             tor_stop(firefox_driver)
             logging.info("===============================================================================")
             logging.info("===============================   FINAL  ======================================")
@@ -266,7 +266,7 @@ def dcf_extraction(firefox_driver, img_list, result_path, ticker, total_height, 
         logging.info("Error getting DCF ")
     scroll_to_top(firefox_driver)
     firefox_driver.set_window_size(1920, total_height)  # the trick
-    time.sleep(40)
+    time.sleep(60)
     firefox_driver.save_screenshot(
         result_path + date_str + "/" + "guru_" + ticker + "--dcf" + '.png')
 
@@ -276,9 +276,9 @@ def dcf_extraction(firefox_driver, img_list, result_path, ticker, total_height, 
              "//section[@id='stock-page-container']/main/div[3]/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/span/span")))
 
         logging.info("Margin_value: " + margin_value_text.text)
-        margin_value = margin_value_text.text
+        margin_value = margin_value_text.text.replace('%', '')
     except Exception as e:
-        margin_value = "unknown"
+        margin_value = "-1"
         logging.info(e)
         logging.info("Error Getting margin_value element")
 

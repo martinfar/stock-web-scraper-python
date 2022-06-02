@@ -20,14 +20,14 @@ def main():
         # ,"Dividend Yield": "Over 1%"
         ,"P/E": "Under 35" 
         #,"PEG": "Under 2"
-        ,"Quick Ratio": "Over 1"
+        # ,"Quick Ratio": "Over 1"
         ,"Return on Equity": "Over +10%"
-        ,"Current Ratio": "Over 1"
+        # ,"Current Ratio": "Over 1"
         #,"Sales growth qtr over qtr": "Over 5%"
-        #,"EPS growth past 5 years": "Over 5%"
+        ,"EPS growthpast 5 years": "Over 5%"
         ,"Debt/Equity": "Under 0.8"        
         ,"Return on Investment": "Positive (>0%)"
-        ,"Country":"USA"
+        # ,"Country":"USA"
         }  
 
     ticket_list = fs.custom_screener(json_dict)
