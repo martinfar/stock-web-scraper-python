@@ -1,3 +1,11 @@
+
+# About the project
+Gurufocus scrapper over Tor to avoid blocking using headless browsers, it screen first a number of stocks based on certain criteria and then deppen its analysis and filtering by extracting information on the reports. 
+At the end it send an email with the result. 
+
+## Example
+![alt text](Screenshot_5.png)
+
 # Local Test
 `nohup /usr/bin/python3 /home/vtx/pystock/main.py > log-scrape.out 2> error-scrape.err &`
 
